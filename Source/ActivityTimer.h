@@ -47,10 +47,5 @@ private:
     juce::AudioParameterInt* seconds;
 
     // in second
-    unsigned int activeExpireTime =
-#ifdef DEBUG
-        10;
-#else
-        0;
-#endif
+    unsigned int activeExpireTime = 0;
 };

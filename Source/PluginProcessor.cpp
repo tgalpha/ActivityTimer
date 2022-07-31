@@ -150,12 +150,7 @@ void ActivityTimerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     // the samples and the outer loop is handling the channels.
     // Alternatively, you can process the samples with the channels
     // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
-    }
+    checkIfAudioBufferHasSignal(buffer);
 }
 
 //==============================================================================
@@ -194,6 +189,26 @@ void ActivityTimerAudioProcessor::setStateInformation (const void* data, int siz
 
     activityTimer.setTimerState(hour, minute, second, activeSustain);
     activityTimer.startTimer();
+}
+
+void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal(juce::AudioBuffer<float>& buffer)
+{
+    const int totalNumInputChannels  = getTotalNumInputChannels();
+    const int numSamples = buffer.getNumSamples();
+    hasSignal = false;
+    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    {
+        const float* reader = buffer.getReadPointer(channel , 0);
+        for (int i = 0; i < numSamples; ++i)
+        {
+            if (reader[i] != 0.0f)
+            {
+                hasSignal = true;
+                activityTimer.activate();
+                return;
+            }
+        }
+    }
 }
 
 //==============================================================================
