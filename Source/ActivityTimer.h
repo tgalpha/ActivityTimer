@@ -22,6 +22,7 @@ public:
     void startTimer();
     void setTimerState(int hourValue, int minuteValue, int secondValue, int activeSustainValue) const;
     void activate();
+    void resetTimer();
 
     int getHour() const;
     int getMinute() const;

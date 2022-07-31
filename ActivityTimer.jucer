@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="ljSE8o" name="ActivityTimer" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              pluginManufacturer="tgalpha" pluginVST3Category="Tools">
   <MAINGROUP id="u1gZXw" name="ActivityTimer">
     <GROUP id="{F87F76C8-F35C-41F3-B880-3B61335B7724}" name="Source">
-      <GROUP id="{DCBD74DF-5AEB-49D9-F512-0EC332D78643}" name="SubComponents">
-        <FILE id="xjTxKf" name="TimeViewer.cpp" compile="1" resource="0" file="Source/SubComponents/TimeViewer.cpp"/>
-        <FILE id="UIU9kn" name="TimeViewer.h" compile="0" resource="0" file="Source/SubComponents/TimeViewer.h"/>
+      <GROUP id="{95328899-37AF-9149-67BE-EA8755C815D4}" name="gui">
+        <FILE id="dxhYyK" name="PluginEditor.h" compile="0" resource="0" file="Source/gui/PluginEditor.h"/>
+        <FILE id="aZDVSt" name="PluginEditor.cpp" compile="1" resource="0"
+              file="Source/gui/PluginEditor.cpp"/>
+        <FILE id="gTRCma" name="TimeViewer.h" compile="0" resource="0" file="Source/gui/TimeViewer.h"/>
+        <FILE id="dZkc8M" name="TimeViewer.cpp" compile="1" resource="0" file="Source/gui/TimeViewer.cpp"/>
       </GROUP>
-      <FILE id="GOijzd" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="GOTUuN" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
       <FILE id="OIxbuK" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="JZBlLQ" name="PluginProcessor.h" compile="0" resource="0"

@@ -27,7 +27,8 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-TimeViewer::TimeViewer ()
+TimeViewer::TimeViewer (ActivityTimer& t)
+    : activityTimer(t)
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
@@ -101,9 +102,10 @@ void TimeViewer::resized()
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="TimeViewer" componentName=""
-                 parentClasses="public juce::Component" constructorParams="" variableInitialisers=""
-                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="1" initialWidth="710" initialHeight="100">
+                 parentClasses="public juce::Component" constructorParams="ActivityTimer&amp; t"
+                 variableInitialisers="activityTimer(t)" snapPixels="8" snapActive="1"
+                 snapShown="1" overlayOpacity="0.330" fixedSize="1" initialWidth="710"
+                 initialHeight="100">
   <BACKGROUND backgroundColour="0">
     <TEXT pos="32 0 72 100" fill="solid: ff000000" hasStroke="0" text="9"
           fontname="zcoolqingkehuangyouti" fontsize="90.0" kerning="0.0"

@@ -78,6 +78,15 @@ void ActivityTimer::activate()
     activeExpireTime = activeSustain->get();
 }
 
+void ActivityTimer::resetTimer()
+{
+    stopTimer();
+    *hour = 0;
+    *minute = 0;
+    *second = 0;
+    startTimer();
+}
+
 bool ActivityTimer::isActive() const
 {
     return activeExpireTime > 0;

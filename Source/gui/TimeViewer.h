@@ -21,6 +21,7 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include <JuceHeader.h>
+#include "../PluginProcessor.h"
 //[/Headers]
 
 
@@ -37,7 +38,7 @@ class TimeViewer  : public juce::Component
 {
 public:
     //==============================================================================
-    TimeViewer ();
+    TimeViewer (ActivityTimer& t);
     ~TimeViewer() override;
 
     //==============================================================================
@@ -51,6 +52,7 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+    ActivityTimer& activityTimer;
     //[/UserVariables]
 
     //==============================================================================

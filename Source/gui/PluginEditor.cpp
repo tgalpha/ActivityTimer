@@ -18,7 +18,7 @@
 */
 
 //[Headers] You can add your own extra header files here...
-#include "PluginProcessor.h"
+#include "../PluginProcessor.h"
 //[/Headers]
 
 #include "PluginEditor.h"
@@ -28,8 +28,8 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTimerAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p)
+ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTimerAudioProcessor& p, ActivityTimer& t)
+    : AudioProcessorEditor (&p), audioProcessor (p), activityTimer(t)
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
@@ -44,7 +44,7 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
 
     textButtonReset->setBounds (32, 16, 72, 24);
 
-    timeViewer.reset (new TimeViewer());
+    timeViewer.reset (new TimeViewer (activityTimer));
     addAndMakeVisible (timeViewer.get());
     timeViewer->setName ("timeViewer");
 
@@ -202,6 +202,8 @@ void ActivityTimerAudioProcessorEditor::buttonClicked (juce::Button* buttonThatW
     if (buttonThatWasClicked == textButtonReset.get())
     {
         //[UserButtonCode_textButtonReset] -- add your button handler code here..
+        activityTimer.resetTimer();
+        timeViewer->repaint();
         //[/UserButtonCode_textButtonReset]
     }
 
@@ -226,7 +228,8 @@ BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="ActivityTimerAudioProcessorEditor"
                  componentName="" parentClasses="public juce::AudioProcessorEditor"
-                 constructorParams="ActivityTimerAudioProcessor&amp; p" variableInitialisers="AudioProcessorEditor (&amp;p), audioProcessor (p)"
+                 constructorParams="ActivityTimerAudioProcessor&amp; p, ActivityTimer&amp; t"
+                 variableInitialisers="AudioProcessorEditor (&amp;p), audioProcessor (p), activityTimer(t)"
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="1" initialWidth="710" initialHeight="300">
   <BACKGROUND backgroundColour="ff2c3333">
@@ -254,7 +257,7 @@ BEGIN_JUCER_METADATA
               needsCallback="1" radioGroupId="0"/>
   <GENERICCOMPONENT name="timeViewer" id="90009543150fc52b" memberName="timeViewer"
                     virtualName="" explicitFocusOrder="0" pos="0 96 710 100" class="TimeViewer"
-                    params=""/>
+                    params="activityTimer"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

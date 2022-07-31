@@ -7,7 +7,7 @@
 */
 
 #include "PluginProcessor.h"
-#include "PluginEditor.h"
+#include "gui/PluginEditor.h"
 
 //==============================================================================
 ActivityTimerAudioProcessor::ActivityTimerAudioProcessor()
@@ -166,7 +166,7 @@ bool ActivityTimerAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* ActivityTimerAudioProcessor::createEditor()
 {
-    return new ActivityTimerAudioProcessorEditor (*this);
+    return new ActivityTimerAudioProcessorEditor (*this, activityTimer);
 }
 
 //==============================================================================
