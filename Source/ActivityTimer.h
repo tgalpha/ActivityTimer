@@ -26,9 +26,8 @@ public:
     void activate();
     void resetTimer();
 
-    void addSecondsViewer(TimeViewer* newListener) const;
-    void addMinutesViewer(TimeViewer* newListener) const;
-    void addHoursViewer(TimeViewer* newListener) const;
+    void addViewers(TimeViewer* hoursViewer, TimeViewer* minutesViewer, TimeViewer* secondsViewer) const;
+    void removeViewers(TimeViewer* hoursViewer, TimeViewer* minutesViewer, TimeViewer* secondsViewer) const;
 
     int getHours() const;
     int getMinutes() const;

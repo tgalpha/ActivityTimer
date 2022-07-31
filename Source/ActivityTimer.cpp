@@ -90,19 +90,20 @@ void ActivityTimer::resetTimer()
     startTimer();
 }
 
-void ActivityTimer::addSecondsViewer(TimeViewer* newListener) const
+void ActivityTimer::addViewers(TimeViewer* hoursViewer, TimeViewer* minutesViewer,
+    TimeViewer* secondsViewer) const
 {
-    seconds->addListener(newListener);
+    hours->addListener(hoursViewer);
+    minutes->addListener(minutesViewer);
+    seconds->addListener(secondsViewer);
 }
 
-void ActivityTimer::addMinutesViewer(TimeViewer* newListener) const
+void ActivityTimer::removeViewers(TimeViewer* hoursViewer, TimeViewer* minutesViewer,
+    TimeViewer* secondsViewer) const
 {
-    minutes->addListener(newListener);
-}
-
-void ActivityTimer::addHoursViewer(TimeViewer* newListener) const
-{
-    hours->addListener(newListener);
+    hours->removeListener(hoursViewer);
+    minutes->removeListener(minutesViewer);
+    seconds->removeListener(secondsViewer);
 }
 
 bool ActivityTimer::isActive() const
