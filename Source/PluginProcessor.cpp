@@ -176,9 +176,9 @@ void ActivityTimerAudioProcessor::getStateInformation (juce::MemoryBlock& destDa
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
     juce::MemoryOutputStream memoryOutputStream (destData, true);
-    memoryOutputStream.writeInt (activityTimer.getHour());
-    memoryOutputStream.writeInt (activityTimer.getMinute());
-    memoryOutputStream.writeInt (activityTimer.getSecond());
+    memoryOutputStream.writeInt (activityTimer.getHours());
+    memoryOutputStream.writeInt (activityTimer.getMinutes());
+    memoryOutputStream.writeInt (activityTimer.getSeconds());
     memoryOutputStream.writeInt (activityTimer.activeSustain->get());
 }
 

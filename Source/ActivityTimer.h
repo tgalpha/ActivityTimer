@@ -11,6 +11,8 @@
 #pragma once
 #include <JuceHeader.h>
 
+#include "gui/TimeViewer.h"
+
 
 class ActivityTimer : public juce::Timer
 {
@@ -24,21 +26,31 @@ public:
     void activate();
     void resetTimer();
 
-    int getHour() const;
-    int getMinute() const;
-    int getSecond() const;
+    void addSecondsViewer(TimeViewer* newListener) const;
+    void addMinutesViewer(TimeViewer* newListener) const;
+    void addHoursViewer(TimeViewer* newListener) const;
+
+    int getHours() const;
+    int getMinutes() const;
+    int getSeconds() const;
     bool isActive() const;
 
     juce::AudioParameterInt* activeSustain;
 private:
     static void increase(juce::AudioParameterInt* targetMember);
+    void debugPrintTime() const;
 
     const int intervalInMilliseconds = 1000;
 
-    juce::AudioParameterInt* hour;
-    juce::AudioParameterInt* minute;
-    juce::AudioParameterInt* second;
+    juce::AudioParameterInt* hours;
+    juce::AudioParameterInt* minutes;
+    juce::AudioParameterInt* seconds;
 
     // in second
-    unsigned int activeExpireTime = 0;
+    unsigned int activeExpireTime =
+#ifdef DEBUG
+        10;
+#else
+        0;
+#endif
 };

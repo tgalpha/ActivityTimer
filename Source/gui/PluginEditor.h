@@ -62,7 +62,9 @@ private:
 
     //==============================================================================
     std::unique_ptr<juce::TextButton> textButtonReset;
-    std::unique_ptr<TimeViewer> timeViewer;
+    std::unique_ptr<TimeViewer> secondsViewer;
+    std::unique_ptr<TimeViewer> minutesViewer;
+    std::unique_ptr<TimeViewer> hoursViewer;
 
 
     //==============================================================================

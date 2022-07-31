@@ -21,7 +21,6 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include <JuceHeader.h>
-#include "../PluginProcessor.h"
 //[/Headers]
 
 
@@ -34,15 +33,19 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class TimeViewer  : public juce::Component
+class TimeViewer  : public juce::Component,
+                    public juce::AudioProcessorParameter::Listener
 {
 public:
     //==============================================================================
-    TimeViewer (ActivityTimer& t);
+    TimeViewer (int currentValue, int maxValue);
     ~TimeViewer() override;
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+    void parameterValueChanged (int parameterIndex, float newValue) override;
+    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override;
+
     //[/UserMethods]
 
     void paint (juce::Graphics& g) override;
@@ -52,7 +55,10 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    ActivityTimer& activityTimer;
+    int maxValue_;
+
+    int tens;
+    int ones;
     //[/UserVariables]
 
     //==============================================================================

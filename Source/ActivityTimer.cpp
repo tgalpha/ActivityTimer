@@ -10,39 +10,42 @@
 
 #include "ActivityTimer.h"
 
+#include "Constants.h"
+
 ActivityTimer::ActivityTimer() : Timer()
 {
-    hour = new juce::AudioParameterInt(0, "Hour", 0, 999, 0);
-    minute = new juce::AudioParameterInt(0, "Minute", 0, 60, 0);
-    second = new juce::AudioParameterInt(0, "Second", 0, 60, 0);
-    activeSustain = new juce::AudioParameterInt(0, "ActiveSustain", 0, 600, 0);
+    hours = new juce::AudioParameterInt(0, "Hour", 0, MAX_HOURS, 0);
+    minutes = new juce::AudioParameterInt(1, "Minute", 0, MAX_MINUTES, 0);
+    seconds = new juce::AudioParameterInt(2, "Second", 0, MAX_SECONDS, 0);
+    activeSustain = new juce::AudioParameterInt(3, "ActiveSustain", 0, DEFAULT_ACTIVE_SUSTAIN, 0);
 }
 
 ActivityTimer::~ActivityTimer()
 {
     stopTimer();
-    delete hour;
-    delete minute;
-    delete second;
+    delete hours;
+    delete minutes;
+    delete seconds;
     delete activeSustain;
 }
 
 void ActivityTimer::timerCallback()
 {
     if (!isActive()) return;
+    debugPrintTime();
 
-    increase(second);
+    increase(seconds);
     activeExpireTime--;
 
-    if (second->get() < 60) return;
+    if (seconds->get() < MAX_SECONDS) return;
 
-    increase(minute);
-    *second = 0;
+    increase(minutes);
+    *seconds = 0;
 
-    if (minute->get() < 60) return;
+    if (minutes->get() < MAX_MINUTES) return;
 
-    increase(hour);
-    *minute = 0;
+    increase(hours);
+    *minutes = 0;
 }
 
 void ActivityTimer::startTimer()
@@ -50,26 +53,26 @@ void ActivityTimer::startTimer()
     Timer::startTimer(intervalInMilliseconds);
 }
 
-int ActivityTimer::getHour() const
+int ActivityTimer::getHours() const
 {
-    return hour->get();
+    return hours->get();
 }
 
-int ActivityTimer::getMinute() const
+int ActivityTimer::getMinutes() const
 {
-    return minute->get();
+    return minutes->get();
 }
 
-int ActivityTimer::getSecond() const
+int ActivityTimer::getSeconds() const
 {
-    return second->get();
+    return seconds->get();
 }
 
 void ActivityTimer::setTimerState(int hourValue, int minuteValue, int secondValue, int activeSustainValue) const
 {
-    *hour = hourValue;
-    *minute = minuteValue;
-    *second = secondValue;
+    *hours = hourValue;
+    *minutes = minuteValue;
+    *seconds = secondValue;
     *activeSustain = activeSustainValue;
 }
 
@@ -81,10 +84,25 @@ void ActivityTimer::activate()
 void ActivityTimer::resetTimer()
 {
     stopTimer();
-    *hour = 0;
-    *minute = 0;
-    *second = 0;
+    *hours = 0;
+    *minutes = 0;
+    *seconds = 0;
     startTimer();
+}
+
+void ActivityTimer::addSecondsViewer(TimeViewer* newListener) const
+{
+    seconds->addListener(newListener);
+}
+
+void ActivityTimer::addMinutesViewer(TimeViewer* newListener) const
+{
+    minutes->addListener(newListener);
+}
+
+void ActivityTimer::addHoursViewer(TimeViewer* newListener) const
+{
+    hours->addListener(newListener);
 }
 
 bool ActivityTimer::isActive() const
@@ -95,4 +113,11 @@ bool ActivityTimer::isActive() const
 void ActivityTimer::increase(juce::AudioParameterInt* targetMember)
 {
     *targetMember = targetMember->get() + 1;
+}
+
+void ActivityTimer::debugPrintTime() const
+{
+#ifdef DEBUG
+    std::cout << hours->get() << ':' << minutes->get() << ':' << seconds->get() << std::endl;
+#endif
 }
