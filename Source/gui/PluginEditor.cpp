@@ -70,7 +70,6 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
     sliderActiveSustain->setTextBoxStyle (juce::Slider::TextBoxLeft, false, 40, 20);
     sliderActiveSustain->setColour (juce::Slider::backgroundColourId, juce::Colour (0xff395b64));
     sliderActiveSustain->setColour (juce::Slider::thumbColourId, juce::Colour (0xffa5c9ca));
-    sliderActiveSustain->setColour (juce::Slider::trackColourId, juce::Colours::white);
     sliderActiveSustain->setColour (juce::Slider::textBoxHighlightColourId, juce::Colour (0x66a5c9ca));
     sliderActiveSustain->setColour (juce::Slider::textBoxOutlineColourId, juce::Colour (0xffe7f6f2));
     sliderActiveSustain->addListener (this);
@@ -320,7 +319,7 @@ BEGIN_JUCER_METADATA
                     params="activityTimer.getHours(), MAX_SECONDS"/>
   <SLIDER name="sliderActiveSustain" id="bd4a151633c1aa7e" memberName="sliderActiveSustain"
           virtualName="" explicitFocusOrder="0" pos="152 200 150 40" tooltip="The duration(seconds) that timer remains active when a signal is received"
-          bkgcol="ff395b64" thumbcol="ffa5c9ca" trackcol="ffffffff" textboxhighlight="66a5c9ca"
+          bkgcol="ff395b64" thumbcol="ffa5c9ca" textboxhighlight="66a5c9ca"
           textboxoutline="ffe7f6f2" min="0.0" max="600.0" int="1.0" style="LinearHorizontal"
           textBoxPos="TextBoxLeft" textBoxEditable="1" textBoxWidth="40"
           textBoxHeight="20" skewFactor="0.5" needsCallback="1"/>
