@@ -59,10 +59,12 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
-    void checkIfAudioBufferHasSignal(juce::AudioBuffer<float>& buffer);
+    void checkIfAudioBufferHasSignal(const juce::AudioBuffer<float>& buffer);
+
+    static bool floatIsNearlyZero(float floatNum);
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ActivityTimerAudioProcessor)
     ActivityTimer activityTimer = ActivityTimer();
-    bool hasSignal;
+    bool silence = true;
 };

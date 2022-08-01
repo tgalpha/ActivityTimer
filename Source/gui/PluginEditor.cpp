@@ -42,7 +42,7 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
     textButtonReset->setColour (juce::TextButton::textColourOffId, juce::Colour (0xffe7f6f2));
     textButtonReset->setColour (juce::TextButton::textColourOnId, juce::Colour (0xffe7f6f2));
 
-    textButtonReset->setBounds (32, 16, 72, 24);
+    textButtonReset->setBounds (32, 24, 72, 24);
 
     secondsViewer.reset (new TimeViewer (activityTimer.getSeconds(), MAX_SECONDS));
     addAndMakeVisible (secondsViewer.get());
@@ -65,35 +65,35 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
     sliderActiveSustain.reset (new juce::Slider ("sliderActiveSustain"));
     addAndMakeVisible (sliderActiveSustain.get());
     sliderActiveSustain->setTooltip (TRANS("The duration(seconds) that timer remains active when a signal is received"));
-    sliderActiveSustain->setRange (0, 600, 1);
+    sliderActiveSustain->setRange (0, 60, 1);
     sliderActiveSustain->setSliderStyle (juce::Slider::LinearHorizontal);
     sliderActiveSustain->setTextBoxStyle (juce::Slider::TextBoxLeft, false, 40, 20);
     sliderActiveSustain->setColour (juce::Slider::backgroundColourId, juce::Colour (0xff395b64));
     sliderActiveSustain->setColour (juce::Slider::thumbColourId, juce::Colour (0xffa5c9ca));
     sliderActiveSustain->setColour (juce::Slider::textBoxHighlightColourId, juce::Colour (0x66a5c9ca));
-    sliderActiveSustain->setColour (juce::Slider::textBoxOutlineColourId, juce::Colour (0xffe7f6f2));
+    sliderActiveSustain->setColour (juce::Slider::textBoxOutlineColourId, juce::Colour (0x44e7f6f2));
     sliderActiveSustain->addListener (this);
     sliderActiveSustain->setSkewFactor (0.5);
 
-    sliderActiveSustain->setBounds (152, 200, 150, 40);
+    sliderActiveSustain->setBounds (152, 200, 160, 40);
 
 
     //[UserPreSize]
-    sliderActiveSustain->setValue(activityTimer.activeSustain->get());
+    sliderActiveSustain->setValue (activityTimer.activeSustain->get());
     //[/UserPreSize]
 
     setSize (625, 260);
 
 
     //[Constructor] You can add your own custom stuff here..
-    activityTimer.addViewers(hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
+    activityTimer.addViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
     //[/Constructor]
 }
 
 ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
-    activityTimer.removeViewers(hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
+    activityTimer.removeViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
     //[/Destructor_pre]
 
     textButtonReset = nullptr;
@@ -255,7 +255,7 @@ void ActivityTimerAudioProcessorEditor::sliderValueChanged (juce::Slider* slider
     {
         //[UserSliderCode_sliderActiveSustain] -- add your slider handling code here..
         const double sliderValue = sliderThatWasMoved->getValue();
-        *activityTimer.activeSustain = juce::roundToInt(sliderValue);
+        *activityTimer.activeSustain = juce::roundToInt (sliderValue);
         //[/UserSliderCode_sliderActiveSustain]
     }
 
@@ -305,7 +305,7 @@ BEGIN_JUCER_METADATA
           italic="0" justification="36"/>
   </BACKGROUND>
   <TEXTBUTTON name="textButtonReset" id="d22744b80c4e49fb" memberName="textButtonReset"
-              virtualName="" explicitFocusOrder="0" pos="32 16 72 24" bgColOff="ff395b64"
+              virtualName="" explicitFocusOrder="0" pos="32 24 72 24" bgColOff="ff395b64"
               textCol="ffe7f6f2" textColOn="ffe7f6f2" buttonText="Reset" connectedEdges="0"
               needsCallback="1" radioGroupId="0"/>
   <GENERICCOMPONENT name="secondsViewer" id="90009543150fc52b" memberName="secondsViewer"
@@ -318,9 +318,9 @@ BEGIN_JUCER_METADATA
                     virtualName="" explicitFocusOrder="0" pos="32 72 160 100" class="TimeViewer"
                     params="activityTimer.getHours(), MAX_SECONDS"/>
   <SLIDER name="sliderActiveSustain" id="bd4a151633c1aa7e" memberName="sliderActiveSustain"
-          virtualName="" explicitFocusOrder="0" pos="152 200 150 40" tooltip="The duration(seconds) that timer remains active when a signal is received"
+          virtualName="" explicitFocusOrder="0" pos="152 200 160 40" tooltip="The duration(seconds) that timer remains active when a signal is received"
           bkgcol="ff395b64" thumbcol="ffa5c9ca" textboxhighlight="66a5c9ca"
-          textboxoutline="ffe7f6f2" min="0.0" max="600.0" int="1.0" style="LinearHorizontal"
+          textboxoutline="44e7f6f2" min="0.0" max="60.0" int="1.0" style="LinearHorizontal"
           textBoxPos="TextBoxLeft" textBoxEditable="1" textBoxWidth="40"
           textBoxHeight="20" skewFactor="0.5" needsCallback="1"/>
 </JUCER_COMPONENT>

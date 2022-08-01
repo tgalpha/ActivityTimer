@@ -10,69 +10,69 @@
 #include "gui/PluginEditor.h"
 
 //==============================================================================
-ActivityTimerAudioProcessor::ActivityTimerAudioProcessor()
+ActivityTimerAudioProcessor::ActivityTimerAudioProcessor ()
 #ifndef JucePlugin_PreferredChannelConfigurations
-    : AudioProcessor(BusesProperties()
+    : AudioProcessor (BusesProperties()
 #if ! JucePlugin_IsMidiEffect
 #if ! JucePlugin_IsSynth
-          .withInput("Input", juce::AudioChannelSet::stereo(), true)
+        .withInput ("Input", juce::AudioChannelSet::stereo(), true)
 #endif
-          .withOutput("Output", juce::AudioChannelSet::stereo(), true)
+        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
 #endif
-      )
+    )
 #endif
 {
 }
 
-ActivityTimerAudioProcessor::~ActivityTimerAudioProcessor()
+ActivityTimerAudioProcessor::~ActivityTimerAudioProcessor ()
 {
 }
 
 //==============================================================================
-const juce::String ActivityTimerAudioProcessor::getName() const
+const juce::String ActivityTimerAudioProcessor::getName () const
 {
     return JucePlugin_Name;
 }
 
-bool ActivityTimerAudioProcessor::acceptsMidi() const
+bool ActivityTimerAudioProcessor::acceptsMidi () const
 {
-   #if JucePlugin_WantsMidiInput
+#if JucePlugin_WantsMidiInput
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
-bool ActivityTimerAudioProcessor::producesMidi() const
+bool ActivityTimerAudioProcessor::producesMidi () const
 {
-   #if JucePlugin_ProducesMidiOutput
+#if JucePlugin_ProducesMidiOutput
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
-bool ActivityTimerAudioProcessor::isMidiEffect() const
+bool ActivityTimerAudioProcessor::isMidiEffect () const
 {
-   #if JucePlugin_IsMidiEffect
+#if JucePlugin_IsMidiEffect
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
-double ActivityTimerAudioProcessor::getTailLengthSeconds() const
+double ActivityTimerAudioProcessor::getTailLengthSeconds () const
 {
     return 0.0;
 }
 
-int ActivityTimerAudioProcessor::getNumPrograms()
+int ActivityTimerAudioProcessor::getNumPrograms ()
 {
-    return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
-                // so this should be at least 1, even if you're not really implementing programs.
+    return 1; // NB: some hosts don't cope very well if you tell them there are 0 programs,
+    // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int ActivityTimerAudioProcessor::getCurrentProgram()
+int ActivityTimerAudioProcessor::getCurrentProgram ()
 {
     return 0;
 }
@@ -97,7 +97,7 @@ void ActivityTimerAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     // initialisation that you need..
 }
 
-void ActivityTimerAudioProcessor::releaseResources()
+void ActivityTimerAudioProcessor::releaseResources ()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
@@ -106,33 +106,33 @@ void ActivityTimerAudioProcessor::releaseResources()
 #ifndef JucePlugin_PreferredChannelConfigurations
 bool ActivityTimerAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
-  #if JucePlugin_IsMidiEffect
+#if JucePlugin_IsMidiEffect
     juce::ignoreUnused (layouts);
     return true;
-  #else
+#else
     // This is the place where you check if the layout is supported.
     // In this template code we only support mono or stereo.
     // Some plugin hosts, such as certain GarageBand versions, will only
     // load plugins that support stereo bus layouts.
     if (layouts.getMainOutputChannelSet() != juce::AudioChannelSet::mono()
-     && layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
+        && layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
         return false;
 
     // This checks if the input layout matches the output layout
-   #if ! JucePlugin_IsSynth
+#if ! JucePlugin_IsSynth
     if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
         return false;
-   #endif
+#endif
 
     return true;
-  #endif
+#endif
 }
 #endif
 
 void ActivityTimerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ScopedNoDenormals noDenormals;
-    const auto totalNumInputChannels  = getTotalNumInputChannels();
+    const auto totalNumInputChannels = getTotalNumInputChannels();
     const auto totalNumOutputChannels = getTotalNumOutputChannels();
 
     // In case we have more outputs than inputs, this code clears any output
@@ -150,16 +150,16 @@ void ActivityTimerAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     // the samples and the outer loop is handling the channels.
     // Alternatively, you can process the samples with the channels
     // interleaved by keeping the same state.
-    checkIfAudioBufferHasSignal(buffer);
+    checkIfAudioBufferHasSignal (buffer);
 }
 
 //==============================================================================
-bool ActivityTimerAudioProcessor::hasEditor() const
+bool ActivityTimerAudioProcessor::hasEditor () const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-juce::AudioProcessorEditor* ActivityTimerAudioProcessor::createEditor()
+juce::AudioProcessorEditor* ActivityTimerAudioProcessor::createEditor ()
 {
     return new ActivityTimerAudioProcessorEditor (*this, activityTimer);
 }
@@ -187,23 +187,23 @@ void ActivityTimerAudioProcessor::setStateInformation (const void* data, int siz
     const int second = memoryInputStream.readInt();
     const int activeSustain = memoryInputStream.readInt();
 
-    activityTimer.setTimerState(hour, minute, second, activeSustain);
+    activityTimer.setTimerState (hour, minute, second, activeSustain);
     activityTimer.startTimer();
 }
 
-void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal(juce::AudioBuffer<float>& buffer)
+void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal (const juce::AudioBuffer<float>& buffer)
 {
-    const int totalNumInputChannels  = getTotalNumInputChannels();
+    const int totalNumInputChannels = getTotalNumInputChannels();
     const int numSamples = buffer.getNumSamples();
-    hasSignal = false;
+    silence = true;
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        const float* reader = buffer.getReadPointer(channel , 0);
+        const float* reader = buffer.getReadPointer (channel, 0);
         for (int i = 0; i < numSamples; ++i)
         {
-            if (reader[i] != 0.0f)
+            if (!floatIsNearlyZero (reader[i]))
             {
-                hasSignal = true;
+                silence = false;
                 activityTimer.activate();
                 return;
             }
@@ -211,9 +211,15 @@ void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal(juce::AudioBuffer<
     }
 }
 
+bool ActivityTimerAudioProcessor::floatIsNearlyZero (const float floatNum)
+{
+    constexpr double epsilon = 1e-6;
+    return std::abs(floatNum) <= epsilon;
+}
+
 //==============================================================================
 // This creates new instances of the plugin..
-juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
+juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter ()
 {
     return new ActivityTimerAudioProcessor();
 }
