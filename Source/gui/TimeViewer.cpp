@@ -106,10 +106,10 @@ void TimeViewer::resized()
 void TimeViewer::parameterValueChanged(int parameterIndex, float newValue)
 {
     juce::MessageManagerLock lock (juce::Thread::getCurrentThread());
-    
+
     if (! lock.lockWasGained())
         return;
-    
+
     int intValue = juce::roundToInt(newValue * maxValue_);
     tens = intValue / 10;
     ones = intValue % 10;

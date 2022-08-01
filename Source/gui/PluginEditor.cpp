@@ -29,14 +29,14 @@
 
 //==============================================================================
 ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTimerAudioProcessor& p, ActivityTimer& t)
-    : AudioProcessorEditor (&p), audioProcessor (p), activityTimer(t)
+    : AudioProcessorEditor (&p), audioProcessor (p), activityTimer (t)
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
 
     textButtonReset.reset (new juce::TextButton ("textButtonReset"));
     addAndMakeVisible (textButtonReset.get());
-    textButtonReset->setButtonText (TRANS("Reset"));
+    textButtonReset->setButtonText (TRANS ("Reset"));
     textButtonReset->addListener (this);
     textButtonReset->setColour (juce::TextButton::buttonColourId, juce::Colour (0xff395b64));
     textButtonReset->setColour (juce::TextButton::textColourOffId, juce::Colour (0xffe7f6f2));
@@ -64,7 +64,8 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
 
     sliderActiveSustain.reset (new juce::Slider ("sliderActiveSustain"));
     addAndMakeVisible (sliderActiveSustain.get());
-    sliderActiveSustain->setTooltip (TRANS("ActivateSustain: The duration(seconds) that timer remains active when a signal is received"));
+    sliderActiveSustain->setTooltip (
+        TRANS ("ActivateSustain: The duration(seconds) that timer remains active when a signal is received"));
     sliderActiveSustain->setRange (0, 60, 1);
     sliderActiveSustain->setSliderStyle (juce::Slider::LinearHorizontal);
     sliderActiveSustain->setTextBoxStyle (juce::Slider::TextBoxLeft, false, 30, 20);
@@ -97,7 +98,7 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
     //[/Constructor]
 }
 
-ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor()
+ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor ()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
     activityTimer.removeViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
@@ -113,6 +114,7 @@ ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor()
 
 
     //[Destructor]. You can add your own custom destruction code here..
+    delete myLookAndFeel;
     //[/Destructor]
 }
 
@@ -216,7 +218,7 @@ void ActivityTimerAudioProcessorEditor::paint (juce::Graphics& g)
 
     {
         int x = 23, y = 205, width = 127, height = 30;
-        juce::String text (TRANS("ActivateSustain:"));
+        juce::String text (TRANS ("ActivateSustain:"));
         juce::Colour fillColour = juce::Colour (0xffe7f6f2);
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
@@ -230,7 +232,7 @@ void ActivityTimerAudioProcessorEditor::paint (juce::Graphics& g)
     //[/UserPaint]
 }
 
-void ActivityTimerAudioProcessorEditor::resized()
+void ActivityTimerAudioProcessorEditor::resized ()
 {
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
@@ -247,7 +249,16 @@ void ActivityTimerAudioProcessorEditor::buttonClicked (juce::Button* buttonThatW
     if (buttonThatWasClicked == textButtonReset.get())
     {
         //[UserButtonCode_textButtonReset] -- add your button handler code here..
-        activityTimer.resetTimer();
+        juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::QuestionIcon, "Reset timer",
+                                            "This operation cannot be undone, continue?",
+                                            {}, {}, {},
+                                            juce::ModalCallbackFunction::create ([this] (bool result)
+                                            {
+                                                if (result)
+                                                {
+                                                    activityTimer.resetTimer();
+                                                }
+                                            }));
         //[/UserButtonCode_textButtonReset]
     }
 
@@ -271,7 +282,6 @@ void ActivityTimerAudioProcessorEditor::sliderValueChanged (juce::Slider* slider
     //[UsersliderValueChanged_Post]
     //[/UsersliderValueChanged_Post]
 }
-
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
@@ -344,4 +354,3 @@ END_JUCER_METADATA
 
 //[EndFile] You can add extra defines here...
 //[/EndFile]
-
