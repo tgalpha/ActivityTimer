@@ -12,6 +12,10 @@
               file="Source/gui/PluginEditor.cpp"/>
         <FILE id="gTRCma" name="TimeViewer.h" compile="0" resource="0" file="Source/gui/TimeViewer.h"/>
         <FILE id="dZkc8M" name="TimeViewer.cpp" compile="1" resource="0" file="Source/gui/TimeViewer.cpp"/>
+        <FILE id="eudxhc" name="SignalIndicator.h" compile="0" resource="0"
+              file="Source/gui/SignalIndicator.h"/>
+        <FILE id="JfYkua" name="SignalIndicator.cpp" compile="1" resource="0"
+              file="Source/gui/SignalIndicator.cpp"/>
       </GROUP>
       <FILE id="OIxbuK" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

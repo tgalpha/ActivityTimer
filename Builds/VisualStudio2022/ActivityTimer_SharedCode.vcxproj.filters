@@ -586,6 +586,9 @@
     <ClCompile Include="..\..\Source\gui\TimeViewer.cpp">
       <Filter>ActivityTimer\Source\gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\gui\SignalIndicator.cpp">
+      <Filter>ActivityTimer\Source\gui</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp">
       <Filter>ActivityTimer\Source</Filter>
     </ClCompile>
@@ -2899,6 +2902,9 @@
       <Filter>ActivityTimer\Source\gui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\gui\TimeViewer.h">
+      <Filter>ActivityTimer\Source\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\gui\SignalIndicator.h">
       <Filter>ActivityTimer\Source\gui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PluginProcessor.h">

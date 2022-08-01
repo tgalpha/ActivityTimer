@@ -22,10 +22,12 @@ ActivityTimerAudioProcessor::ActivityTimerAudioProcessor ()
     )
 #endif
 {
+    silence = new juce::AudioParameterBool(0, "silence", false);
 }
 
 ActivityTimerAudioProcessor::~ActivityTimerAudioProcessor ()
 {
+    delete silence;
 }
 
 //==============================================================================
@@ -191,11 +193,21 @@ void ActivityTimerAudioProcessor::setStateInformation (const void* data, int siz
     activityTimer.startTimer();
 }
 
+void ActivityTimerAudioProcessor::addSignalIndicator (SignalIndicator* signalIndicator) const
+{
+    silence->addListener (signalIndicator);
+}
+
+void ActivityTimerAudioProcessor::removeSignalIndicator (SignalIndicator* signalIndicator) const
+{
+    silence->removeListener (signalIndicator);
+}
+
 void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal (const juce::AudioBuffer<float>& buffer)
 {
     const int totalNumInputChannels = getTotalNumInputChannels();
     const int numSamples = buffer.getNumSamples();
-    silence = true;
+    
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         const float* reader = buffer.getReadPointer (channel, 0);
@@ -203,12 +215,13 @@ void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal (const juce::Audio
         {
             if (!floatIsNearlyZero (reader[i]))
             {
-                silence = false;
+                *silence = false;
                 activityTimer.activate();
                 return;
             }
         }
     }
+    *silence = true;
 }
 
 bool ActivityTimerAudioProcessor::floatIsNearlyZero (const float floatNum)

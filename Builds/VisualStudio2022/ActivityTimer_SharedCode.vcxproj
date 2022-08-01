@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\gui\PluginEditor.cpp"/>
     <ClCompile Include="..\..\Source\gui\TimeViewer.cpp"/>
+    <ClCompile Include="..\..\Source\gui\SignalIndicator.cpp"/>
     <ClCompile Include="..\..\Source\PluginProcessor.cpp"/>
     <ClCompile Include="..\..\Source\ActivityTimer.cpp"/>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
@@ -2302,6 +2303,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Source\gui\PluginEditor.h"/>
     <ClInclude Include="..\..\Source\gui\TimeViewer.h"/>
+    <ClInclude Include="..\..\Source\gui\SignalIndicator.h"/>
     <ClInclude Include="..\..\Source\PluginProcessor.h"/>
     <ClInclude Include="..\..\Source\ActivityTimer.h"/>
     <ClInclude Include="..\..\Source\Constants.h"/>

@@ -14,10 +14,10 @@
 
 ActivityTimer::ActivityTimer() : Timer()
 {
-    hours = new juce::AudioParameterInt(0, "Hour", 0, MAX_HOURS, 0);
-    minutes = new juce::AudioParameterInt(1, "Minute", 0, MAX_MINUTES, 0);
-    seconds = new juce::AudioParameterInt(2, "Second", 0, MAX_SECONDS, 0);
-    activeSustain = new juce::AudioParameterInt(3, "ActiveSustain", 0, MAX_ACTIVE_SUSTAIN, DEFAULT_ACTIVE_SUSTAIN);
+    hours = new juce::AudioParameterInt(1, "Hour", 0, MAX_HOURS, 0);
+    minutes = new juce::AudioParameterInt(2, "Minute", 0, MAX_MINUTES, 0);
+    seconds = new juce::AudioParameterInt(3, "Second", 0, MAX_SECONDS, 0);
+    activeSustain = new juce::AudioParameterInt(4, "ActiveSustain", 0, MAX_ACTIVE_SUSTAIN, DEFAULT_ACTIVE_SUSTAIN);
     startTimer();
 }
 

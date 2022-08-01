@@ -23,6 +23,7 @@
 #include <JuceHeader.h>
 
 #include "TimeViewer.h"
+#include "Signalindicator.h"
 #include "../PluginProcessor.h"
 //[/Headers]
 
@@ -60,6 +61,8 @@ private:
     //[UserVariables]   -- You can add your own custom variables in this section.
     ActivityTimerAudioProcessor& audioProcessor;
     ActivityTimer& activityTimer;
+
+    juce::TooltipWindow tooltipWindow { this, 500 };
     //[/UserVariables]
 
     //==============================================================================
@@ -68,6 +71,7 @@ private:
     std::unique_ptr<TimeViewer> minutesViewer;
     std::unique_ptr<TimeViewer> hoursViewer;
     std::unique_ptr<juce::Slider> sliderActiveSustain;
+    std::unique_ptr<SignalIndicator> signalIndicator;
 
 
     //==============================================================================

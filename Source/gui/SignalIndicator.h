@@ -33,13 +33,14 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class TimeViewer  : public juce::Component,
-                    public juce::AudioProcessorParameter::Listener
+class SignalIndicator  : public juce::Component,
+                         public juce::AudioProcessorParameter::Listener,
+                         public juce::SettableTooltipClient
 {
 public:
     //==============================================================================
-    TimeViewer (int currentValue, int maxValue);
-    ~TimeViewer() override;
+    SignalIndicator ();
+    ~SignalIndicator() override;
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
@@ -54,17 +55,14 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    int maxValue_;
-
-    int tens;
-    int ones;
+    bool isLight = false;
     //[/UserVariables]
 
     //==============================================================================
 
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TimeViewer)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SignalIndicator)
 };
 
 //[EndFile] You can add extra defines here...

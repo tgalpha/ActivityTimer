@@ -64,10 +64,10 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
 
     sliderActiveSustain.reset (new juce::Slider ("sliderActiveSustain"));
     addAndMakeVisible (sliderActiveSustain.get());
-    sliderActiveSustain->setTooltip (TRANS("The duration(seconds) that timer remains active when a signal is received"));
+    sliderActiveSustain->setTooltip (TRANS("ActivateSustain: The duration(seconds) that timer remains active when a signal is received"));
     sliderActiveSustain->setRange (0, 60, 1);
     sliderActiveSustain->setSliderStyle (juce::Slider::LinearHorizontal);
-    sliderActiveSustain->setTextBoxStyle (juce::Slider::TextBoxLeft, false, 40, 20);
+    sliderActiveSustain->setTextBoxStyle (juce::Slider::TextBoxLeft, false, 30, 20);
     sliderActiveSustain->setColour (juce::Slider::backgroundColourId, juce::Colour (0xff395b64));
     sliderActiveSustain->setColour (juce::Slider::thumbColourId, juce::Colour (0xffa5c9ca));
     sliderActiveSustain->setColour (juce::Slider::textBoxHighlightColourId, juce::Colour (0x66a5c9ca));
@@ -77,16 +77,23 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
 
     sliderActiveSustain->setBounds (152, 200, 160, 40);
 
+    signalIndicator.reset (new SignalIndicator());
+    addAndMakeVisible (signalIndicator.get());
+    signalIndicator->setName ("signalIndicator");
+
+    signalIndicator->setBounds (544, 24, 24, 24);
+
 
     //[UserPreSize]
     sliderActiveSustain->setValue (activityTimer.activeSustain->get());
+    activityTimer.addViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
+    audioProcessor.addSignalIndicator (signalIndicator.get());
     //[/UserPreSize]
 
     setSize (625, 260);
 
 
     //[Constructor] You can add your own custom stuff here..
-    activityTimer.addViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
     //[/Constructor]
 }
 
@@ -94,6 +101,7 @@ ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
     activityTimer.removeViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
+    audioProcessor.removeSignalIndicator (signalIndicator.get());
     //[/Destructor_pre]
 
     textButtonReset = nullptr;
@@ -101,6 +109,7 @@ ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor()
     minutesViewer = nullptr;
     hoursViewer = nullptr;
     sliderActiveSustain = nullptr;
+    signalIndicator = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -318,11 +327,14 @@ BEGIN_JUCER_METADATA
                     virtualName="" explicitFocusOrder="0" pos="32 72 160 100" class="TimeViewer"
                     params="activityTimer.getHours(), MAX_SECONDS"/>
   <SLIDER name="sliderActiveSustain" id="bd4a151633c1aa7e" memberName="sliderActiveSustain"
-          virtualName="" explicitFocusOrder="0" pos="152 200 160 40" tooltip="The duration(seconds) that timer remains active when a signal is received"
+          virtualName="" explicitFocusOrder="0" pos="152 200 160 40" tooltip="ActivateSustain: The duration(seconds) that timer remains active when a signal is received"
           bkgcol="ff395b64" thumbcol="ffa5c9ca" textboxhighlight="66a5c9ca"
           textboxoutline="44e7f6f2" min="0.0" max="60.0" int="1.0" style="LinearHorizontal"
-          textBoxPos="TextBoxLeft" textBoxEditable="1" textBoxWidth="40"
+          textBoxPos="TextBoxLeft" textBoxEditable="1" textBoxWidth="30"
           textBoxHeight="20" skewFactor="0.5" needsCallback="1"/>
+  <GENERICCOMPONENT name="signalIndicator" id="6b00bd3e186e3c3a" memberName="signalIndicator"
+                    virtualName="" explicitFocusOrder="0" pos="544 24 24 24" class="SignalIndicator"
+                    params=""/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
