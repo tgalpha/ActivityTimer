@@ -22,12 +22,13 @@ ActivityTimerAudioProcessor::ActivityTimerAudioProcessor ()
     )
 #endif
 {
-    silence = new juce::AudioParameterBool(0, "silence", false);
+    activityTimer.reset(new ActivityTimer());
+    silence.reset(new juce::AudioParameterBool(0, "silence", false));
 }
 
 ActivityTimerAudioProcessor::~ActivityTimerAudioProcessor ()
 {
-    delete silence;
+    silence = nullptr;
 }
 
 //==============================================================================
@@ -163,7 +164,7 @@ bool ActivityTimerAudioProcessor::hasEditor () const
 
 juce::AudioProcessorEditor* ActivityTimerAudioProcessor::createEditor ()
 {
-    return new ActivityTimerAudioProcessorEditor (*this, activityTimer);
+    return new ActivityTimerAudioProcessorEditor (*this);
 }
 
 //==============================================================================
@@ -173,10 +174,10 @@ void ActivityTimerAudioProcessor::getStateInformation (juce::MemoryBlock& destDa
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
     juce::MemoryOutputStream memoryOutputStream (destData, true);
-    memoryOutputStream.writeInt (activityTimer.getHours());
-    memoryOutputStream.writeInt (activityTimer.getMinutes());
-    memoryOutputStream.writeInt (activityTimer.getSeconds());
-    memoryOutputStream.writeInt (activityTimer.activeSustain->get());
+    memoryOutputStream.writeInt (activityTimer->getHours());
+    memoryOutputStream.writeInt (activityTimer->getMinutes());
+    memoryOutputStream.writeInt (activityTimer->getSeconds());
+    memoryOutputStream.writeInt (activityTimer->activeSustain->get());
 }
 
 void ActivityTimerAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
@@ -189,8 +190,8 @@ void ActivityTimerAudioProcessor::setStateInformation (const void* data, int siz
     const int second = memoryInputStream.readInt();
     const int activeSustain = memoryInputStream.readInt();
 
-    activityTimer.setTimerState (hour, minute, second, activeSustain);
-    activityTimer.startTimer();
+    activityTimer->setTimerState (hour, minute, second, activeSustain);
+    activityTimer->startTimer();
 }
 
 void ActivityTimerAudioProcessor::addSignalIndicator (SignalIndicator* signalIndicator) const
@@ -202,8 +203,12 @@ void ActivityTimerAudioProcessor::removeSignalIndicator (SignalIndicator* signal
 {
     silence->removeListener (signalIndicator);
 }
+ActivityTimer* ActivityTimerAudioProcessor::getTimer() const
+{
+    return activityTimer.get();
+}
 
-void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal (const juce::AudioBuffer<float>& buffer)
+void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal (const juce::AudioBuffer<float>& buffer) const
 {
     const int totalNumInputChannels = getTotalNumInputChannels();
     const int numSamples = buffer.getNumSamples();
@@ -216,7 +221,7 @@ void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal (const juce::Audio
             if (!floatIsNearlyZero (reader[i]))
             {
                 *silence = false;
-                activityTimer.activate();
+                activityTimer->activate();
                 return;
             }
         }
@@ -226,7 +231,7 @@ void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal (const juce::Audio
 
 bool ActivityTimerAudioProcessor::floatIsNearlyZero (const float floatNum)
 {
-    constexpr double epsilon = 1e-6;
+    constexpr float epsilon = 1e-6f;
     return std::abs(floatNum) <= epsilon;
 }
 

@@ -34,16 +34,16 @@ public:
     int getSeconds() const;
     bool isActive() const;
 
-    juce::AudioParameterInt* activeSustain;
+    std::unique_ptr<juce::AudioParameterInt> activeSustain;
 private:
     static void increase(juce::AudioParameterInt* targetMember);
     void debugPrintTime() const;
 
     const int intervalInMilliseconds = 1000;
 
-    juce::AudioParameterInt* hours;
-    juce::AudioParameterInt* minutes;
-    juce::AudioParameterInt* seconds;
+    std::unique_ptr<juce::AudioParameterInt> hours;
+    std::unique_ptr<juce::AudioParameterInt> minutes;
+    std::unique_ptr<juce::AudioParameterInt> seconds;
 
     // in second
     unsigned int activeExpireTime = 0;

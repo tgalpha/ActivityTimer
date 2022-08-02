@@ -11,7 +11,7 @@
 #include <JuceHeader.h>
 
 #include "ActivityTimer.h"
-#include "gui/Signalindicator.h"
+#include "gui/SignalIndicator.h"
 
 //==============================================================================
 /**
@@ -62,13 +62,15 @@ public:
     void addSignalIndicator (SignalIndicator* signalIndicator) const;
     void removeSignalIndicator (SignalIndicator* signalIndicator) const;
 
+    ActivityTimer* getTimer () const;
+
 private:
-    void checkIfAudioBufferHasSignal(const juce::AudioBuffer<float>& buffer);
+    void checkIfAudioBufferHasSignal(const juce::AudioBuffer<float>& buffer) const;
 
     static bool floatIsNearlyZero(float floatNum);
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ActivityTimerAudioProcessor)
-    ActivityTimer activityTimer = ActivityTimer();
-    juce::AudioParameterBool* silence;
+    std::unique_ptr<ActivityTimer> activityTimer;
+    std::unique_ptr<juce::AudioParameterBool> silence;
 };

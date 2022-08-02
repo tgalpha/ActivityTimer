@@ -28,15 +28,16 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTimerAudioProcessor& p, ActivityTimer& t)
-    : AudioProcessorEditor (&p), audioProcessor (p), activityTimer (t)
+ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTimerAudioProcessor& p)
+    : AudioProcessorEditor (&p), audioProcessor (p)
 {
     //[Constructor_pre] You can add your own custom stuff here..
+    activityTimer = audioProcessor.getTimer();
     //[/Constructor_pre]
 
     textButtonReset.reset (new juce::TextButton ("textButtonReset"));
     addAndMakeVisible (textButtonReset.get());
-    textButtonReset->setButtonText (TRANS ("Reset"));
+    textButtonReset->setButtonText (TRANS("Reset"));
     textButtonReset->addListener (this);
     textButtonReset->setColour (juce::TextButton::buttonColourId, juce::Colour (0xff395b64));
     textButtonReset->setColour (juce::TextButton::textColourOffId, juce::Colour (0xffe7f6f2));
@@ -44,19 +45,19 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
 
     textButtonReset->setBounds (32, 24, 72, 24);
 
-    secondsViewer.reset (new TimeViewer (activityTimer.getSeconds(), MAX_SECONDS));
+    secondsViewer.reset (new TimeViewer (activityTimer->getSeconds(), MAX_SECONDS));
     addAndMakeVisible (secondsViewer.get());
     secondsViewer->setName ("secondsViewer");
 
     secondsViewer->setBounds (432, 72, 160, 100);
 
-    minutesViewer.reset (new TimeViewer (activityTimer.getMinutes(), MAX_SECONDS));
+    minutesViewer.reset (new TimeViewer (activityTimer->getMinutes(), MAX_SECONDS));
     addAndMakeVisible (minutesViewer.get());
     minutesViewer->setName ("minutesViewer");
 
     minutesViewer->setBounds (232, 72, 160, 100);
 
-    hoursViewer.reset (new TimeViewer (activityTimer.getHours(), MAX_SECONDS));
+    hoursViewer.reset (new TimeViewer (activityTimer->getHours(), MAX_SECONDS));
     addAndMakeVisible (hoursViewer.get());
     hoursViewer->setName ("hoursViewer");
 
@@ -64,8 +65,7 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
 
     sliderActiveSustain.reset (new juce::Slider ("sliderActiveSustain"));
     addAndMakeVisible (sliderActiveSustain.get());
-    sliderActiveSustain->setTooltip (
-        TRANS ("ActivateSustain: The duration(seconds) that timer remains active when a signal is received"));
+    sliderActiveSustain->setTooltip (TRANS("ActivateSustain: The duration(seconds) that timer remains active when a signal is received"));
     sliderActiveSustain->setRange (0, 60, 1);
     sliderActiveSustain->setSliderStyle (juce::Slider::LinearHorizontal);
     sliderActiveSustain->setTextBoxStyle (juce::Slider::TextBoxLeft, false, 30, 20);
@@ -86,8 +86,8 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
 
 
     //[UserPreSize]
-    sliderActiveSustain->setValue (activityTimer.activeSustain->get());
-    activityTimer.addViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
+    sliderActiveSustain->setValue (activityTimer->activeSustain->get());
+    activityTimer->addViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
     audioProcessor.addSignalIndicator (signalIndicator.get());
     //[/UserPreSize]
 
@@ -98,10 +98,10 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
     //[/Constructor]
 }
 
-ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor ()
+ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
-    activityTimer.removeViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
+    activityTimer->removeViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
     audioProcessor.removeSignalIndicator (signalIndicator.get());
     //[/Destructor_pre]
 
@@ -114,7 +114,6 @@ ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor ()
 
 
     //[Destructor]. You can add your own custom destruction code here..
-    delete myLookAndFeel;
     //[/Destructor]
 }
 
@@ -218,7 +217,7 @@ void ActivityTimerAudioProcessorEditor::paint (juce::Graphics& g)
 
     {
         int x = 23, y = 205, width = 127, height = 30;
-        juce::String text (TRANS ("ActivateSustain:"));
+        juce::String text (TRANS("ActivateSustain:"));
         juce::Colour fillColour = juce::Colour (0xffe7f6f2);
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
@@ -232,7 +231,7 @@ void ActivityTimerAudioProcessorEditor::paint (juce::Graphics& g)
     //[/UserPaint]
 }
 
-void ActivityTimerAudioProcessorEditor::resized ()
+void ActivityTimerAudioProcessorEditor::resized()
 {
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
@@ -256,7 +255,7 @@ void ActivityTimerAudioProcessorEditor::buttonClicked (juce::Button* buttonThatW
                                             {
                                                 if (result)
                                                 {
-                                                    activityTimer.resetTimer();
+                                                    activityTimer->resetTimer();
                                                 }
                                             }));
         //[/UserButtonCode_textButtonReset]
@@ -275,13 +274,14 @@ void ActivityTimerAudioProcessorEditor::sliderValueChanged (juce::Slider* slider
     {
         //[UserSliderCode_sliderActiveSustain] -- add your slider handling code here..
         const double sliderValue = sliderThatWasMoved->getValue();
-        *activityTimer.activeSustain = juce::roundToInt (sliderValue);
+        *(activityTimer->activeSustain) = juce::roundToInt (sliderValue);
         //[/UserSliderCode_sliderActiveSustain]
     }
 
     //[UsersliderValueChanged_Post]
     //[/UsersliderValueChanged_Post]
 }
+
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
@@ -299,8 +299,7 @@ BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="ActivityTimerAudioProcessorEditor"
                  componentName="" parentClasses="public juce::AudioProcessorEditor"
-                 constructorParams="ActivityTimerAudioProcessor&amp; p, ActivityTimer&amp; t"
-                 variableInitialisers="AudioProcessorEditor (&amp;p), audioProcessor (p), activityTimer(t)"
+                 constructorParams="ActivityTimerAudioProcessor&amp; p" variableInitialisers="AudioProcessorEditor (&amp;p), audioProcessor (p)"
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="1" initialWidth="625" initialHeight="260">
   <BACKGROUND backgroundColour="ff2c3333">
@@ -329,13 +328,13 @@ BEGIN_JUCER_METADATA
               needsCallback="1" radioGroupId="0"/>
   <GENERICCOMPONENT name="secondsViewer" id="90009543150fc52b" memberName="secondsViewer"
                     virtualName="" explicitFocusOrder="0" pos="432 72 160 100" class="TimeViewer"
-                    params="activityTimer.getSeconds(), MAX_SECONDS"/>
+                    params="activityTimer-&gt;getSeconds(), MAX_SECONDS"/>
   <GENERICCOMPONENT name="minutesViewer" id="ebd403bb1fedd8ca" memberName="minutesViewer"
                     virtualName="" explicitFocusOrder="0" pos="232 72 160 100" class="TimeViewer"
-                    params="activityTimer.getMinutes(), MAX_SECONDS"/>
+                    params="activityTimer-&gt;getMinutes(), MAX_SECONDS"/>
   <GENERICCOMPONENT name="hoursViewer" id="b4e4b2945914687a" memberName="hoursViewer"
                     virtualName="" explicitFocusOrder="0" pos="32 72 160 100" class="TimeViewer"
-                    params="activityTimer.getHours(), MAX_SECONDS"/>
+                    params="activityTimer-&gt;getHours(), MAX_SECONDS"/>
   <SLIDER name="sliderActiveSustain" id="bd4a151633c1aa7e" memberName="sliderActiveSustain"
           virtualName="" explicitFocusOrder="0" pos="152 200 160 40" tooltip="ActivateSustain: The duration(seconds) that timer remains active when a signal is received"
           bkgcol="ff395b64" thumbcol="ffa5c9ca" textboxhighlight="66a5c9ca"
@@ -354,3 +353,4 @@ END_JUCER_METADATA
 
 //[EndFile] You can add extra defines here...
 //[/EndFile]
+

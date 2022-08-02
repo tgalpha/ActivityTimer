@@ -23,7 +23,7 @@
 #include <JuceHeader.h>
 
 #include "TimeViewer.h"
-#include "Signalindicator.h"
+#include "SignalIndicator.h"
 #include "../PluginProcessor.h"
 //[/Headers]
 
@@ -43,7 +43,7 @@ class ActivityTimerAudioProcessorEditor  : public juce::AudioProcessorEditor,
 {
 public:
     //==============================================================================
-    ActivityTimerAudioProcessorEditor (ActivityTimerAudioProcessor& p, ActivityTimer& t);
+    ActivityTimerAudioProcessorEditor (ActivityTimerAudioProcessor& p);
     ~ActivityTimerAudioProcessorEditor() override;
 
     //==============================================================================
@@ -60,7 +60,7 @@ public:
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
     ActivityTimerAudioProcessor& audioProcessor;
-    ActivityTimer& activityTimer;
+    ActivityTimer* activityTimer;
 
     juce::TooltipWindow tooltipWindow { this, 500 };
     //[/UserVariables]

@@ -94,7 +94,7 @@
       <OutputFile>$(IntDir)\ActivityTimer.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>xcopy /e /y /d &quot;$(TargetDir)*.vst3&quot; &quot;%CommonProgramW6432%\VST3&quot;</Command>
+      <Command>xcopy /y /d &quot;$(TargetDir)*.vst3&quot; &quot;%CommonProgramW6432%\VST3&quot;</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -141,7 +141,7 @@
       <OutputFile>$(IntDir)\ActivityTimer.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>xcopy /e /y /d &quot;$(TargetDir)*.vst3&quot; &quot;%CommonProgramW6432%\VST3&quot;</Command>
+      <Command>xcopy /y /d &quot;$(TargetDir)*.vst3&quot; &quot;%CommonProgramW6432%\VST3&quot;</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
