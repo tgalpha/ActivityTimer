@@ -2301,6 +2301,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\gui\MyLookAndFeel.h"/>
     <ClInclude Include="..\..\Source\gui\PluginEditor.h"/>
     <ClInclude Include="..\..\Source\gui\TimeViewer.h"/>
     <ClInclude Include="..\..\Source\gui\SignalIndicator.h"/>

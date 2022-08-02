@@ -33,6 +33,8 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
 {
     //[Constructor_pre] You can add your own custom stuff here..
     activityTimer = audioProcessor.getTimer();
+    myLookAndFeel.reset (new MyLookAndFeel);
+    juce::LookAndFeel::setDefaultLookAndFeel(myLookAndFeel.get());
     //[/Constructor_pre]
 
     textButtonReset.reset (new juce::TextButton ("textButtonReset"));
@@ -103,6 +105,7 @@ ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor()
     //[Destructor_pre]. You can add your own custom destruction code here..
     activityTimer->removeViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
     audioProcessor.removeSignalIndicator (signalIndicator.get());
+    myLookAndFeel = nullptr;
     //[/Destructor_pre]
 
     textButtonReset = nullptr;
@@ -248,7 +251,7 @@ void ActivityTimerAudioProcessorEditor::buttonClicked (juce::Button* buttonThatW
     if (buttonThatWasClicked == textButtonReset.get())
     {
         //[UserButtonCode_textButtonReset] -- add your button handler code here..
-        juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::QuestionIcon, "Reset timer",
+        juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, "Reset timer",
                                             "This operation cannot be undone, continue?",
                                             {}, {}, {},
                                             juce::ModalCallbackFunction::create ([this] (bool result)

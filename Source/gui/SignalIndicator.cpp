@@ -101,12 +101,12 @@ void SignalIndicator::resized()
 void SignalIndicator::parameterValueChanged (int parameterIndex, float newValue)
 {
     juce::MessageManagerLock lock (juce::Thread::getCurrentThread());
-    
+
     if (! lock.lockWasGained())
         return;
-    
+
     isLight = !newValue;
-    
+
     repaint();
 }
 

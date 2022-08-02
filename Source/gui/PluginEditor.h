@@ -22,6 +22,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include <JuceHeader.h>
 
+#include "MyLookAndFeel.h"
 #include "TimeViewer.h"
 #include "SignalIndicator.h"
 #include "../PluginProcessor.h"
@@ -63,6 +64,8 @@ private:
     ActivityTimer* activityTimer;
 
     juce::TooltipWindow tooltipWindow { this, 500 };
+
+    std::unique_ptr<MyLookAndFeel> myLookAndFeel;
     //[/UserVariables]
 
     //==============================================================================

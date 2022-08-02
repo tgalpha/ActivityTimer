@@ -2898,6 +2898,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\gui\MyLookAndFeel.h">
+      <Filter>ActivityTimer\Source\gui</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\gui\PluginEditor.h">
       <Filter>ActivityTimer\Source\gui</Filter>
     </ClInclude>
