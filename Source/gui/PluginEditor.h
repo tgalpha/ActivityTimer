@@ -69,6 +69,7 @@ private:
     //[/UserVariables]
 
     //==============================================================================
+    std::unique_ptr<juce::ProgressBar> expireTimeProgressBar;
     std::unique_ptr<juce::TextButton> textButtonReset;
     std::unique_ptr<TimeViewer> secondsViewer;
     std::unique_ptr<TimeViewer> minutesViewer;

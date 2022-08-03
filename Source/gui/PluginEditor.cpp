@@ -37,13 +37,16 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
     juce::LookAndFeel::setDefaultLookAndFeel(myLookAndFeel.get());
     //[/Constructor_pre]
 
+    expireTimeProgressBar.reset (new juce::ProgressBar (activityTimer->expirePercentage));
+    addAndMakeVisible (expireTimeProgressBar.get());
+    expireTimeProgressBar->setName ("expireTimeProgressBar");
+
+    expireTimeProgressBar->setBounds (0, 248, 624, 24);
+
     textButtonReset.reset (new juce::TextButton ("textButtonReset"));
     addAndMakeVisible (textButtonReset.get());
     textButtonReset->setButtonText (TRANS("Reset"));
     textButtonReset->addListener (this);
-    textButtonReset->setColour (juce::TextButton::buttonColourId, juce::Colour (0xff395b64));
-    textButtonReset->setColour (juce::TextButton::textColourOffId, juce::Colour (0xffe7f6f2));
-    textButtonReset->setColour (juce::TextButton::textColourOnId, juce::Colour (0xffe7f6f2));
 
     textButtonReset->setBounds (32, 24, 72, 24);
 
@@ -71,14 +74,10 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
     sliderActiveSustain->setRange (0, 60, 1);
     sliderActiveSustain->setSliderStyle (juce::Slider::LinearHorizontal);
     sliderActiveSustain->setTextBoxStyle (juce::Slider::TextBoxLeft, false, 30, 20);
-    sliderActiveSustain->setColour (juce::Slider::backgroundColourId, juce::Colour (0xff395b64));
-    sliderActiveSustain->setColour (juce::Slider::thumbColourId, juce::Colour (0xffa5c9ca));
-    sliderActiveSustain->setColour (juce::Slider::textBoxHighlightColourId, juce::Colour (0x66a5c9ca));
-    sliderActiveSustain->setColour (juce::Slider::textBoxOutlineColourId, juce::Colour (0x44e7f6f2));
     sliderActiveSustain->addListener (this);
     sliderActiveSustain->setSkewFactor (0.5);
 
-    sliderActiveSustain->setBounds (152, 200, 160, 40);
+    sliderActiveSustain->setBounds (32, 200, 160, 24);
 
     signalIndicator.reset (new SignalIndicator());
     addAndMakeVisible (signalIndicator.get());
@@ -91,6 +90,7 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
     sliderActiveSustain->setValue (activityTimer->activeSustain->get());
     activityTimer->addViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
     audioProcessor.addSignalIndicator (signalIndicator.get());
+    expireTimeProgressBar->setPercentageDisplay (false);
     //[/UserPreSize]
 
     setSize (625, 260);
@@ -108,6 +108,7 @@ ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor()
     myLookAndFeel = nullptr;
     //[/Destructor_pre]
 
+    expireTimeProgressBar = nullptr;
     textButtonReset = nullptr;
     secondsViewer = nullptr;
     minutesViewer = nullptr;
@@ -127,6 +128,21 @@ void ActivityTimerAudioProcessorEditor::paint (juce::Graphics& g)
     //[/UserPrePaint]
 
     g.fillAll (juce::Colour (0xff2c3333));
+
+    {
+        int x = 0, y = 0, width = 625, height = 260;
+        juce::Colour fillColour1 = juce::Colour (0x4f395b64), fillColour2 = juce::Colour (0xff2c3333);
+        //[UserPaintCustomArguments] Customize the painting arguments here..
+        //[/UserPaintCustomArguments]
+        g.setGradientFill (juce::ColourGradient (fillColour1,
+                                             312.0f - 0.0f + x,
+                                             130.0f - 0.0f + y,
+                                             fillColour2,
+                                             40.0f - 0.0f + x,
+                                             static_cast<float> (-40) - 0.0f + y,
+                                             true));
+        g.fillRect (x, y, width, height);
+    }
 
     {
         float x = 120.0f, y = 72.0f, width = 72.0f, height = 100.0f;
@@ -218,18 +234,6 @@ void ActivityTimerAudioProcessorEditor::paint (juce::Graphics& g)
         g.fillRoundedRectangle (x, y, width, height, 10.000f);
     }
 
-    {
-        int x = 23, y = 205, width = 127, height = 30;
-        juce::String text (TRANS("ActivateSustain:"));
-        juce::Colour fillColour = juce::Colour (0xffe7f6f2);
-        //[UserPaintCustomArguments] Customize the painting arguments here..
-        //[/UserPaintCustomArguments]
-        g.setColour (fillColour);
-        g.setFont (juce::Font (16.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
-        g.drawText (text, x, y, width, height,
-                    juce::Justification::centred, true);
-    }
-
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
 }
@@ -278,6 +282,7 @@ void ActivityTimerAudioProcessorEditor::sliderValueChanged (juce::Slider* slider
         //[UserSliderCode_sliderActiveSustain] -- add your slider handling code here..
         const double sliderValue = sliderThatWasMoved->getValue();
         *(activityTimer->activeSustain) = juce::roundToInt (sliderValue);
+        activityTimer->refreshExpirePercentage();
         //[/UserSliderCode_sliderActiveSustain]
     }
 
@@ -306,6 +311,8 @@ BEGIN_JUCER_METADATA
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="1" initialWidth="625" initialHeight="260">
   <BACKGROUND backgroundColour="ff2c3333">
+    <RECT pos="0 0 625 260" fill=" radial: 312.5 130, 40 -40, 0=4f395b64, 1=ff2c3333"
+          hasStroke="0"/>
     <ROUNDRECT pos="120 72 72 100" cornerSize="10.0" fill="solid: ffe7f6f2"
                hasStroke="0"/>
     <ROUNDRECT pos="208 105 10 10" cornerSize="2.0" fill="solid: ffa5c9ca" hasStroke="0"/>
@@ -321,14 +328,13 @@ BEGIN_JUCER_METADATA
     <ROUNDRECT pos="408 105 10 10" cornerSize="2.0" fill="solid: ffa5c9ca" hasStroke="0"/>
     <ROUNDRECT pos="408 137 10 10" cornerSize="2.0" fill="solid: ffa5c9ca" hasStroke="0"/>
     <ROUNDRECT pos="32 72 72 100" cornerSize="10.0" fill="solid: ffe7f6f2" hasStroke="0"/>
-    <TEXT pos="23 205 127 30" fill="solid: ffe7f6f2" hasStroke="0" text="ActivateSustain:"
-          fontname="Default font" fontsize="16.0" kerning="0.0" bold="0"
-          italic="0" justification="36"/>
   </BACKGROUND>
+  <GENERICCOMPONENT name="expireTimeProgressBar" id="5b9b34c3e2d42153" memberName="expireTimeProgressBar"
+                    virtualName="" explicitFocusOrder="0" pos="0 248 624 24" class="juce::ProgressBar"
+                    params="activityTimer-&gt;expirePercentage"/>
   <TEXTBUTTON name="textButtonReset" id="d22744b80c4e49fb" memberName="textButtonReset"
-              virtualName="" explicitFocusOrder="0" pos="32 24 72 24" bgColOff="ff395b64"
-              textCol="ffe7f6f2" textColOn="ffe7f6f2" buttonText="Reset" connectedEdges="0"
-              needsCallback="1" radioGroupId="0"/>
+              virtualName="" explicitFocusOrder="0" pos="32 24 72 24" buttonText="Reset"
+              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <GENERICCOMPONENT name="secondsViewer" id="90009543150fc52b" memberName="secondsViewer"
                     virtualName="" explicitFocusOrder="0" pos="432 72 160 100" class="TimeViewer"
                     params="activityTimer-&gt;getSeconds(), MAX_SECONDS"/>
@@ -339,11 +345,10 @@ BEGIN_JUCER_METADATA
                     virtualName="" explicitFocusOrder="0" pos="32 72 160 100" class="TimeViewer"
                     params="activityTimer-&gt;getHours(), MAX_SECONDS"/>
   <SLIDER name="sliderActiveSustain" id="bd4a151633c1aa7e" memberName="sliderActiveSustain"
-          virtualName="" explicitFocusOrder="0" pos="152 200 160 40" tooltip="ActivateSustain: The duration(seconds) that timer remains active when a signal is received"
-          bkgcol="ff395b64" thumbcol="ffa5c9ca" textboxhighlight="66a5c9ca"
-          textboxoutline="44e7f6f2" min="0.0" max="60.0" int="1.0" style="LinearHorizontal"
-          textBoxPos="TextBoxLeft" textBoxEditable="1" textBoxWidth="30"
-          textBoxHeight="20" skewFactor="0.5" needsCallback="1"/>
+          virtualName="" explicitFocusOrder="0" pos="32 200 160 24" tooltip="ActivateSustain: The duration(seconds) that timer remains active when a signal is received"
+          min="0.0" max="60.0" int="1.0" style="LinearHorizontal" textBoxPos="TextBoxLeft"
+          textBoxEditable="1" textBoxWidth="30" textBoxHeight="20" skewFactor="0.5"
+          needsCallback="1"/>
   <GENERICCOMPONENT name="signalIndicator" id="6b00bd3e186e3c3a" memberName="signalIndicator"
                     virtualName="" explicitFocusOrder="0" pos="544 24 24 24" class="SignalIndicator"
                     params=""/>

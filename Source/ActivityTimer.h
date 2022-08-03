@@ -25,6 +25,7 @@ public:
     void setTimerState(int hourValue, int minuteValue, int secondValue, int activeSustainValue) const;
     void activate();
     void resetTimer();
+    void refreshExpirePercentage();
 
     void addViewers(TimeViewer* hoursViewer, TimeViewer* minutesViewer, TimeViewer* secondsViewer) const;
     void removeViewers(TimeViewer* hoursViewer, TimeViewer* minutesViewer, TimeViewer* secondsViewer) const;
@@ -35,6 +36,7 @@ public:
     bool isActive() const;
 
     std::unique_ptr<juce::AudioParameterInt> activeSustain;
+    double expirePercentage = 0.0;
 private:
     static void increase(juce::AudioParameterInt* targetMember);
     void debugPrintTime() const;
@@ -46,5 +48,5 @@ private:
     std::unique_ptr<juce::AudioParameterInt> seconds;
 
     // in second
-    unsigned int activeExpireTime = 0;
+    int activeExpireTime = 0;
 };

@@ -37,6 +37,7 @@ void ActivityTimer::timerCallback()
 
     increase(seconds.get());
     activeExpireTime--;
+    refreshExpirePercentage();
 
     if (seconds->get() < MAX_SECONDS) return;
 
@@ -80,6 +81,7 @@ void ActivityTimer::setTimerState(int hourValue, int minuteValue, int secondValu
 void ActivityTimer::activate()
 {
     activeExpireTime = activeSustain->get();
+    refreshExpirePercentage();
 }
 
 void ActivityTimer::resetTimer()
@@ -91,8 +93,20 @@ void ActivityTimer::resetTimer()
     startTimer();
 }
 
+void ActivityTimer::refreshExpirePercentage ()
+{
+    activeExpireTime = std::min (activeSustain->get(), activeExpireTime);
+    if (activeExpireTime == 0)
+    {
+        expirePercentage = 0.0;
+        return;
+    }
+    
+    expirePercentage = static_cast<double> (activeExpireTime) / activeSustain->get();
+}
+
 void ActivityTimer::addViewers(TimeViewer* hoursViewer, TimeViewer* minutesViewer,
-    TimeViewer* secondsViewer) const
+                               TimeViewer* secondsViewer) const
 {
     hours->addListener(hoursViewer);
     minutes->addListener(minutesViewer);
