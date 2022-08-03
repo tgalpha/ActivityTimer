@@ -33,7 +33,7 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
 {
     //[Constructor_pre] You can add your own custom stuff here..
     activityTimer = audioProcessor.getTimer();
-    myLookAndFeel.reset (new MyLookAndFeel);
+    myLookAndFeel.reset (new juce::MyLookAndFeel);
     juce::LookAndFeel::setDefaultLookAndFeel(myLookAndFeel.get());
     //[/Constructor_pre]
 

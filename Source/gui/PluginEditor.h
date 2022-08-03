@@ -65,7 +65,7 @@ private:
 
     juce::TooltipWindow tooltipWindow { this, 500 };
 
-    std::unique_ptr<MyLookAndFeel> myLookAndFeel;
+    std::unique_ptr<juce::MyLookAndFeel> myLookAndFeel;
     //[/UserVariables]
 
     //==============================================================================
