@@ -8,6 +8,8 @@
     <GROUP id="{F87F76C8-F35C-41F3-B880-3B61335B7724}" name="Source">
       <GROUP id="{95328899-37AF-9149-67BE-EA8755C815D4}" name="gui">
         <FILE id="k4op8l" name="MyLookAndFeel.h" compile="0" resource="0" file="Source/gui/MyLookAndFeel.h"/>
+        <FILE id="NZpUWT" name="MyLookAndFeel.cpp" compile="1" resource="0"
+              file="Source/gui/MyLookAndFeel.cpp"/>
         <FILE id="dxhYyK" name="PluginEditor.h" compile="0" resource="0" file="Source/gui/PluginEditor.h"/>
         <FILE id="aZDVSt" name="PluginEditor.cpp" compile="1" resource="0"
               file="Source/gui/PluginEditor.cpp"/>

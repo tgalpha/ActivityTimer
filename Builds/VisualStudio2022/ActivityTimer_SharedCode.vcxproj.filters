@@ -580,6 +580,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\gui\MyLookAndFeel.cpp">
+      <Filter>ActivityTimer\Source\gui</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\gui\PluginEditor.cpp">
       <Filter>ActivityTimer\Source\gui</Filter>
     </ClCompile>

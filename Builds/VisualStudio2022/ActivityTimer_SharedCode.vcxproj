@@ -145,6 +145,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\gui\MyLookAndFeel.cpp"/>
     <ClCompile Include="..\..\Source\gui\PluginEditor.cpp"/>
     <ClCompile Include="..\..\Source\gui\TimeViewer.cpp"/>
     <ClCompile Include="..\..\Source\gui\SignalIndicator.cpp"/>
