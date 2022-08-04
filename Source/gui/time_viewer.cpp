@@ -71,7 +71,7 @@ void TimeViewer::paint (juce::Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (juce::Font ("zcoolqingkehuangyouti", 90.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+        g.setFont (juce::Font (juce::Font::getDefaultSansSerifFontName(),90.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
         g.drawText (text, x, y, width, height,
                     juce::Justification::centred, true);
     }
@@ -83,7 +83,7 @@ void TimeViewer::paint (juce::Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (juce::Font ("zcoolqingkehuangyouti", 90.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+        g.setFont (juce::Font (juce::Font::getDefaultSansSerifFontName(),90.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
         g.drawText (text, x, y, width, height,
                     juce::Justification::centred, true);
     }
