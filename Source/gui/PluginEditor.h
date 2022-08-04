@@ -39,8 +39,8 @@
                                                                     //[/Comments]
 */
 class ActivityTimerAudioProcessorEditor  : public juce::AudioProcessorEditor,
-                                           public juce::Slider::Listener,
-                                            public juce::Button::Listener
+                                           public juce::Button::Listener,
+                                           public juce::Slider::Listener
 {
 public:
     //==============================================================================
@@ -49,11 +49,11 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+    void buttonClicked (juce::Button* buttonThatWasClicked) override;
     //[/UserMethods]
 
     void paint (juce::Graphics& g) override;
     void resized() override;
-    void buttonClicked (juce::Button* buttonThatWasClicked) override;
     void sliderValueChanged (juce::Slider* sliderThatWasMoved) override;
 
 

@@ -251,23 +251,6 @@ void ActivityTimerAudioProcessorEditor::resized()
     //[/UserResized]
 }
 
-void ActivityTimerAudioProcessorEditor::buttonClicked (juce::Button* buttonThatWasClicked)
-{
-    if (buttonThatWasClicked == shapeButtonReset.get())
-    {
-        juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, "Reset timer",
-                                            "This operation cannot be undone, continue?",
-                                            {}, {}, {},
-                                            juce::ModalCallbackFunction::create ([this] (bool result)
-                                            {
-                                                if (result)
-                                                {
-                                                    activityTimer->resetTimer();
-                                                }
-                                            }));
-    }
-}
-
 void ActivityTimerAudioProcessorEditor::sliderValueChanged (juce::Slider* sliderThatWasMoved)
 {
     //[UsersliderValueChanged_Pre]
@@ -289,6 +272,22 @@ void ActivityTimerAudioProcessorEditor::sliderValueChanged (juce::Slider* slider
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+void ActivityTimerAudioProcessorEditor::buttonClicked (juce::Button* buttonThatWasClicked)
+{
+    if (buttonThatWasClicked == shapeButtonReset.get())
+    {
+        juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, "Reset timer",
+                                            "This operation cannot be undone, continue?",
+                                            {}, {}, {},
+                                            juce::ModalCallbackFunction::create ([this] (bool result)
+                                            {
+                                                if (result)
+                                                {
+                                                    activityTimer->resetTimer();
+                                                }
+                                            }));
+    }
+}
 //[/MiscUserCode]
 
 
@@ -302,7 +301,7 @@ void ActivityTimerAudioProcessorEditor::sliderValueChanged (juce::Slider* slider
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="ActivityTimerAudioProcessorEditor"
-                 componentName="" parentClasses="public juce::AudioProcessorEditor"
+                 componentName="" parentClasses="public juce::AudioProcessorEditor, public juce::Button::Listener"
                  constructorParams="ActivityTimerAudioProcessor&amp; p" variableInitialisers="AudioProcessorEditor (&amp;p), audioProcessor (p)"
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="1" initialWidth="625" initialHeight="260">
