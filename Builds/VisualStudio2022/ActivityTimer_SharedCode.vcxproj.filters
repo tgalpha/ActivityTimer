@@ -2,11 +2,11 @@
 
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ActivityTimer\Source\gui">
-      <UniqueIdentifier>{E493F503-C916-238C-909A-14660BF181BE}</UniqueIdentifier>
+    <Filter Include="ActivityTimer\source\gui">
+      <UniqueIdentifier>{F5EC6735-D403-DC4C-CC4D-5BD6C50C622F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ActivityTimer\Source">
-      <UniqueIdentifier>{1739479E-901D-1ACB-49E9-2D75B0CE8B97}</UniqueIdentifier>
+    <Filter Include="ActivityTimer\source">
+      <UniqueIdentifier>{837649D4-4231-0864-3D39-7951568092FA}</UniqueIdentifier>
     </Filter>
     <Filter Include="ActivityTimer">
       <UniqueIdentifier>{00F02415-6A9D-5F58-AB86-8E7E4CB7E6EF}</UniqueIdentifier>
@@ -580,23 +580,23 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\gui\MyLookAndFeel.cpp">
-      <Filter>ActivityTimer\Source\gui</Filter>
+    <ClCompile Include="..\..\Source\gui\my_look_and_feel.cpp">
+      <Filter>ActivityTimer\source\gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\gui\PluginEditor.cpp">
-      <Filter>ActivityTimer\Source\gui</Filter>
+    <ClCompile Include="..\..\Source\gui\plugin_editor.cpp">
+      <Filter>ActivityTimer\source\gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\gui\TimeViewer.cpp">
-      <Filter>ActivityTimer\Source\gui</Filter>
+    <ClCompile Include="..\..\Source\gui\time_viewer.cpp">
+      <Filter>ActivityTimer\source\gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\gui\SignalIndicator.cpp">
-      <Filter>ActivityTimer\Source\gui</Filter>
+    <ClCompile Include="..\..\Source\gui\signal_indicator.cpp">
+      <Filter>ActivityTimer\source\gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\PluginProcessor.cpp">
-      <Filter>ActivityTimer\Source</Filter>
+    <ClCompile Include="..\..\Source\plugin_processor.cpp">
+      <Filter>ActivityTimer\source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\ActivityTimer.cpp">
-      <Filter>ActivityTimer\Source</Filter>
+    <ClCompile Include="..\..\Source\activity_timer.cpp">
+      <Filter>ActivityTimer\source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>JUCE Modules\juce_audio_basics\buffers</Filter>
@@ -2901,26 +2901,26 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\gui\MyLookAndFeel.h">
-      <Filter>ActivityTimer\Source\gui</Filter>
+    <ClInclude Include="..\..\Source\gui\my_look_and_feel.h">
+      <Filter>ActivityTimer\source\gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\gui\PluginEditor.h">
-      <Filter>ActivityTimer\Source\gui</Filter>
+    <ClInclude Include="..\..\Source\gui\plugin_editor.h">
+      <Filter>ActivityTimer\source\gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\gui\TimeViewer.h">
-      <Filter>ActivityTimer\Source\gui</Filter>
+    <ClInclude Include="..\..\Source\gui\time_viewer.h">
+      <Filter>ActivityTimer\source\gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\gui\SignalIndicator.h">
-      <Filter>ActivityTimer\Source\gui</Filter>
+    <ClInclude Include="..\..\Source\gui\signal_indicator.h">
+      <Filter>ActivityTimer\source\gui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\PluginProcessor.h">
-      <Filter>ActivityTimer\Source</Filter>
+    <ClInclude Include="..\..\Source\plugin_processor.h">
+      <Filter>ActivityTimer\source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\ActivityTimer.h">
-      <Filter>ActivityTimer\Source</Filter>
+    <ClInclude Include="..\..\Source\activity_timer.h">
+      <Filter>ActivityTimer\source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Constants.h">
-      <Filter>ActivityTimer\Source</Filter>
+    <ClInclude Include="..\..\Source\constants.h">
+      <Filter>ActivityTimer\source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>

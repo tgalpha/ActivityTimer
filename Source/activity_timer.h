@@ -11,7 +11,7 @@
 #pragma once
 #include <JuceHeader.h>
 
-#include "gui/TimeViewer.h"
+#include "gui/time_viewer.h"
 
 
 class ActivityTimer : public juce::Timer

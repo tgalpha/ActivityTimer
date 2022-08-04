@@ -20,14 +20,14 @@
 //[Headers] You can add your own extra header files here...
 //[/Headers]
 
-#include "SignalIndicator.h"
+#include "time_viewer.h"
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
 //[/MiscUserDefs]
 
 //==============================================================================
-SignalIndicator::SignalIndicator ()
+TimeViewer::TimeViewer (int currentValue, int maxValue)
 {
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
@@ -36,15 +36,17 @@ SignalIndicator::SignalIndicator ()
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (24, 24);
+    setSize (160, 100);
 
 
     //[Constructor] You can add your own custom stuff here..
-    SettableTooltipClient::setTooltip (TRANS("SignalIndicator: Lights up when a signal is received."));
+    maxValue_ = maxValue;
+    tens = currentValue / 10;
+    ones = currentValue % 10;
     //[/Constructor]
 }
 
-SignalIndicator::~SignalIndicator()
+TimeViewer::~TimeViewer()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
@@ -56,36 +58,39 @@ SignalIndicator::~SignalIndicator()
 }
 
 //==============================================================================
-void SignalIndicator::paint (juce::Graphics& g)
+void TimeViewer::paint (juce::Graphics& g)
 {
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
 
+    //[UserPaint] Add your own custom painting code here..
     {
-        float x = 0.0f, y = 0.0f, width = 24.0f, height = 24.0f;
-        juce::Colour fillColour1 = juce::Colour (0xff395b64), fillColour2 = juce::Colour (0xff2c3333);
+        int x = 0, y = 0, width = 72, height = 100;
+        juce::String text = std::to_string(tens);
+        juce::Colour fillColour = juce::Colour (0xff395b64);
         //[UserPaintCustomArguments] Customize the painting arguments here..
-        if (isLight)
-        {
-            fillColour1 = juce::Colour (0xffa5c9ca);
-            fillColour2 = juce::Colour (0xffe7f6f2);
-        }
         //[/UserPaintCustomArguments]
-        g.setGradientFill (juce::ColourGradient (fillColour1,
-                                             12.0f - 0.0f + x,
-                                             12.0f - 0.0f + y,
-                                             fillColour2,
-                                             0.0f - 0.0f + x,
-                                             0.0f - 0.0f + y,
-                                             true));
-        g.fillEllipse (x, y, width, height);
+        g.setColour (fillColour);
+        g.setFont (juce::Font ("zcoolqingkehuangyouti", 90.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+        g.drawText (text, x, y, width, height,
+                    juce::Justification::centred, true);
     }
 
-    //[UserPaint] Add your own custom painting code here..
+    {
+        int x = 88, y = 0, width = 72, height = 100;
+        juce::String text = std::to_string(ones);
+        juce::Colour fillColour = juce::Colour (0xff395b64);
+        //[UserPaintCustomArguments] Customize the painting arguments here..
+        //[/UserPaintCustomArguments]
+        g.setColour (fillColour);
+        g.setFont (juce::Font ("zcoolqingkehuangyouti", 90.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
+        g.drawText (text, x, y, width, height,
+                    juce::Justification::centred, true);
+    }
     //[/UserPaint]
 }
 
-void SignalIndicator::resized()
+void TimeViewer::resized()
 {
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
@@ -98,19 +103,20 @@ void SignalIndicator::resized()
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 
-void SignalIndicator::parameterValueChanged (int parameterIndex, float newValue)
+void TimeViewer::parameterValueChanged(int parameterIndex, float newValue)
 {
     juce::MessageManagerLock lock (juce::Thread::getCurrentThread());
 
     if (! lock.lockWasGained())
         return;
 
-    isLight = !newValue;
-
+    int intValue = juce::roundToInt(newValue * maxValue_);
+    tens = intValue / 10;
+    ones = intValue % 10;
     repaint();
 }
 
-void SignalIndicator::parameterGestureChanged (int parameterIndex, bool gestureIsStarting)
+void TimeViewer::parameterGestureChanged(int parameterIndex, bool gestureIsStarting)
 {
 }
 
@@ -126,15 +132,12 @@ void SignalIndicator::parameterGestureChanged (int parameterIndex, bool gestureI
 
 BEGIN_JUCER_METADATA
 
-<JUCER_COMPONENT documentType="Component" className="SignalIndicator" componentName=""
-                 parentClasses="public juce::Component, public juce::AudioProcessorParameter::Listener, public juce::SettableTooltipClient"
-                 constructorParams="" variableInitialisers="" snapPixels="8" snapActive="1"
-                 snapShown="1" overlayOpacity="0.330" fixedSize="1" initialWidth="24"
-                 initialHeight="24">
-  <BACKGROUND backgroundColour="323e44">
-    <ELLIPSE pos="0 0 24 24" fill=" radial: 12 12, 0 0, 0=ff395b64, 1=ff2c3333"
-             hasStroke="0"/>
-  </BACKGROUND>
+<JUCER_COMPONENT documentType="Component" className="TimeViewer" componentName=""
+                 parentClasses="public juce::Component, public juce::AudioProcessorParameter::Listener"
+                 constructorParams="int currentValue, int maxValue" variableInitialisers=""
+                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
+                 fixedSize="1" initialWidth="160" initialHeight="100">
+  <BACKGROUND backgroundColour="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

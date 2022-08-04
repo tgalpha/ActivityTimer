@@ -8,7 +8,7 @@
   ==============================================================================
 */
 
-#include "ActivityTimer.h"
+#include "activity_timer.h"
 
 #include "Constants.h"
 

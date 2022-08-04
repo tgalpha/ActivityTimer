@@ -6,8 +6,8 @@
   ==============================================================================
 */
 
-#include "PluginProcessor.h"
-#include "gui/PluginEditor.h"
+#include "plugin_processor.h"
+#include "gui/plugin_editor.h"
 
 //==============================================================================
 ActivityTimerAudioProcessor::ActivityTimerAudioProcessor ()

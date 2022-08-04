@@ -10,8 +10,8 @@
 
 #include <JuceHeader.h>
 
-#include "ActivityTimer.h"
-#include "gui/SignalIndicator.h"
+#include "activity_timer.h"
+#include "gui/signal_indicator.h"
 
 //==============================================================================
 /**

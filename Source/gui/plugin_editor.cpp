@@ -21,7 +21,7 @@
 #include  "../Constants.h"
 //[/Headers]
 
-#include "PluginEditor.h"
+#include "plugin_editor.h"
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...

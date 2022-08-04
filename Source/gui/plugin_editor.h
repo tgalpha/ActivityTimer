@@ -22,10 +22,10 @@
 //[Headers]     -- You can add your own extra header files here --
 #include <JuceHeader.h>
 
-#include "MyLookAndFeel.h"
-#include "TimeViewer.h"
-#include "SignalIndicator.h"
-#include "../PluginProcessor.h"
+#include "my_look_and_feel.h"
+#include "time_viewer.h"
+#include "signal_indicator.h"
+#include "../plugin_processor.h"
 //[/Headers]
 
 

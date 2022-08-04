@@ -145,12 +145,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\gui\MyLookAndFeel.cpp"/>
-    <ClCompile Include="..\..\Source\gui\PluginEditor.cpp"/>
-    <ClCompile Include="..\..\Source\gui\TimeViewer.cpp"/>
-    <ClCompile Include="..\..\Source\gui\SignalIndicator.cpp"/>
-    <ClCompile Include="..\..\Source\PluginProcessor.cpp"/>
-    <ClCompile Include="..\..\Source\ActivityTimer.cpp"/>
+    <ClCompile Include="..\..\Source\gui\my_look_and_feel.cpp"/>
+    <ClCompile Include="..\..\Source\gui\plugin_editor.cpp"/>
+    <ClCompile Include="..\..\Source\gui\time_viewer.cpp"/>
+    <ClCompile Include="..\..\Source\gui\signal_indicator.cpp"/>
+    <ClCompile Include="..\..\Source\plugin_processor.cpp"/>
+    <ClCompile Include="..\..\Source\activity_timer.cpp"/>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -2302,13 +2302,13 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\gui\MyLookAndFeel.h"/>
-    <ClInclude Include="..\..\Source\gui\PluginEditor.h"/>
-    <ClInclude Include="..\..\Source\gui\TimeViewer.h"/>
-    <ClInclude Include="..\..\Source\gui\SignalIndicator.h"/>
-    <ClInclude Include="..\..\Source\PluginProcessor.h"/>
-    <ClInclude Include="..\..\Source\ActivityTimer.h"/>
-    <ClInclude Include="..\..\Source\Constants.h"/>
+    <ClInclude Include="..\..\Source\gui\my_look_and_feel.h"/>
+    <ClInclude Include="..\..\Source\gui\plugin_editor.h"/>
+    <ClInclude Include="..\..\Source\gui\time_viewer.h"/>
+    <ClInclude Include="..\..\Source\gui\signal_indicator.h"/>
+    <ClInclude Include="..\..\Source\plugin_processor.h"/>
+    <ClInclude Include="..\..\Source\activity_timer.h"/>
+    <ClInclude Include="..\..\Source\constants.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>

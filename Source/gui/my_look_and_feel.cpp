@@ -8,7 +8,7 @@
   ==============================================================================
 */
 
-#include "MyLookAndFeel.h"
+#include "my_look_and_feel.h"
 
 theme::MyLookAndFeel::MyLookAndFeel ()
 {

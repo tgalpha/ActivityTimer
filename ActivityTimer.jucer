@@ -5,29 +5,31 @@
               pluginVST3Category="Tools" companyWebsite="www.tgalpha.top" bundleIdentifier="com.tgalpha.ActivityTimer"
               aaxIdentifier="com.tgalpha.ActivityTimer" displaySplashScreen="1">
   <MAINGROUP id="u1gZXw" name="ActivityTimer">
-    <GROUP id="{F87F76C8-F35C-41F3-B880-3B61335B7724}" name="Source">
+    <GROUP id="{F87F76C8-F35C-41F3-B880-3B61335B7724}" name="source">
       <GROUP id="{95328899-37AF-9149-67BE-EA8755C815D4}" name="gui">
-        <FILE id="k4op8l" name="MyLookAndFeel.h" compile="0" resource="0" file="Source/gui/MyLookAndFeel.h"/>
-        <FILE id="NZpUWT" name="MyLookAndFeel.cpp" compile="1" resource="0"
-              file="Source/gui/MyLookAndFeel.cpp"/>
-        <FILE id="dxhYyK" name="PluginEditor.h" compile="0" resource="0" file="Source/gui/PluginEditor.h"/>
-        <FILE id="aZDVSt" name="PluginEditor.cpp" compile="1" resource="0"
-              file="Source/gui/PluginEditor.cpp"/>
-        <FILE id="gTRCma" name="TimeViewer.h" compile="0" resource="0" file="Source/gui/TimeViewer.h"/>
-        <FILE id="dZkc8M" name="TimeViewer.cpp" compile="1" resource="0" file="Source/gui/TimeViewer.cpp"/>
-        <FILE id="eudxhc" name="SignalIndicator.h" compile="0" resource="0"
-              file="Source/gui/SignalIndicator.h"/>
-        <FILE id="JfYkua" name="SignalIndicator.cpp" compile="1" resource="0"
-              file="Source/gui/SignalIndicator.cpp"/>
+        <FILE id="k4op8l" name="my_look_and_feel.h" compile="0" resource="0"
+              file="Source/gui/my_look_and_feel.h"/>
+        <FILE id="NZpUWT" name="my_look_and_feel.cpp" compile="1" resource="0"
+              file="Source/gui/my_look_and_feel.cpp"/>
+        <FILE id="dxhYyK" name="plugin_editor.h" compile="0" resource="0" file="Source/gui/plugin_editor.h"/>
+        <FILE id="aZDVSt" name="plugin_editor.cpp" compile="1" resource="0"
+              file="Source/gui/plugin_editor.cpp"/>
+        <FILE id="gTRCma" name="time_viewer.h" compile="0" resource="0" file="Source/gui/time_viewer.h"/>
+        <FILE id="dZkc8M" name="time_viewer.cpp" compile="1" resource="0" file="Source/gui/time_viewer.cpp"/>
+        <FILE id="eudxhc" name="signal_indicator.h" compile="0" resource="0"
+              file="Source/gui/signal_indicator.h"/>
+        <FILE id="JfYkua" name="signal_indicator.cpp" compile="1" resource="0"
+              file="Source/gui/signal_indicator.cpp"/>
       </GROUP>
-      <FILE id="OIxbuK" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="JZBlLQ" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="qCagLS" name="ActivityTimer.cpp" compile="1" resource="0"
-            file="Source/ActivityTimer.cpp"/>
-      <FILE id="lTY4fx" name="ActivityTimer.h" compile="0" resource="0" file="Source/ActivityTimer.h"/>
-      <FILE id="JeA007" name="Constants.h" compile="0" resource="0" file="Source/Constants.h"/>
+      <FILE id="OIxbuK" name="plugin_processor.cpp" compile="1" resource="0"
+            file="Source/plugin_processor.cpp"/>
+      <FILE id="JZBlLQ" name="plugin_processor.h" compile="0" resource="0"
+            file="Source/plugin_processor.h"/>
+      <FILE id="qCagLS" name="activity_timer.cpp" compile="1" resource="0"
+            file="Source/activity_timer.cpp"/>
+      <FILE id="lTY4fx" name="activity_timer.h" compile="0" resource="0"
+            file="Source/activity_timer.h"/>
+      <FILE id="JeA007" name="constants.h" compile="0" resource="0" file="Source/constants.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
