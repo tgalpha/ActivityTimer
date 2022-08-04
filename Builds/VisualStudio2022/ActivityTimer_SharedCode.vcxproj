@@ -145,6 +145,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\source\gui\smooth_progress_bar.cpp"/>
     <ClCompile Include="..\..\Source\gui\my_look_and_feel.cpp"/>
     <ClCompile Include="..\..\Source\gui\plugin_editor.cpp"/>
     <ClCompile Include="..\..\Source\gui\time_viewer.cpp"/>

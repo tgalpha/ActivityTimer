@@ -7,6 +7,8 @@
   <MAINGROUP id="u1gZXw" name="ActivityTimer">
     <GROUP id="{F87F76C8-F35C-41F3-B880-3B61335B7724}" name="source">
       <GROUP id="{95328899-37AF-9149-67BE-EA8755C815D4}" name="gui">
+        <FILE id="aMmY8F" name="smooth_progress_bar.cpp" compile="1" resource="0"
+              file="source/gui/smooth_progress_bar.cpp"/>
         <FILE id="k4op8l" name="my_look_and_feel.h" compile="0" resource="0"
               file="Source/gui/my_look_and_feel.h"/>
         <FILE id="NZpUWT" name="my_look_and_feel.cpp" compile="1" resource="0"

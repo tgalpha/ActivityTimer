@@ -580,6 +580,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\source\gui\smooth_progress_bar.cpp">
+      <Filter>ActivityTimer\source\gui</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\gui\my_look_and_feel.cpp">
       <Filter>ActivityTimer\source\gui</Filter>
     </ClCompile>
