@@ -19,23 +19,18 @@ namespace theme
 
     class MyLookAndFeel : public LookAndFeel_V4
     {
-    public:
+        public:
         MyLookAndFeel ();
+
+        static Path getResetButtonPath ();
 
         void drawButtonBackground (Graphics& g,
                                    Button& button,
                                    const Colour& backgroundColour,
                                    bool shouldDrawButtonAsHighlighted,
                                    bool shouldDrawButtonAsDown) override;
-        void drawLabel(Graphics&, Label&) override;
-        void drawAlertBox(Graphics&, AlertWindow&, const Rectangle<int>& textArea, TextLayout&) override;
-
-    private:
-        ColourScheme colourScheme{
-            0xff2c3333, 0xff395b64, 0xff2c3333,
-            0xff395b64, 0xffe7f6f2, 0xff395b64,
-            0xffe7f6f2, 0xff395b64, 0xffffffff
-        };
+        void drawLabel (Graphics&, Label&) override;
+        void drawAlertBox (Graphics&, AlertWindow&, const Rectangle<int>& textArea, TextLayout&) override;
 
         // Personal alias.
         struct ColourTheme
@@ -46,5 +41,12 @@ namespace theme
             Colour primaryAccent = Colour (0xffe7f6f2);
             Colour contrast = Colour (0xffe16428);
         } colourTheme;
+
+        private:
+        ColourScheme colourScheme{
+            0xff2c3333, 0xff395b64, 0xff2c3333,
+            0xff395b64, 0xffe7f6f2, 0xff395b64,
+            0xffe7f6f2, 0xff395b64, 0xffffffff
+        };
     };
 }

@@ -43,13 +43,6 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
 
     expireTimeProgressBar->setBounds (0, 248, 624, 24);
 
-    textButtonReset.reset (new juce::TextButton ("textButtonReset"));
-    addAndMakeVisible (textButtonReset.get());
-    textButtonReset->setButtonText (TRANS("Reset"));
-    textButtonReset->addListener (this);
-
-    textButtonReset->setBounds (32, 24, 72, 24);
-
     secondsViewer.reset (new TimeViewer (activityTimer->getSeconds(), MAX_SECONDS));
     addAndMakeVisible (secondsViewer.get());
     secondsViewer->setName ("secondsViewer");
@@ -85,18 +78,29 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
 
     signalIndicator->setBounds (544, 24, 24, 24);
 
+    shapeButtonReset.reset (new juce::ShapeButton ("shapeButtonReset", myLookAndFeel->colourTheme.primaryLight, myLookAndFeel->colourTheme.primaryAccent, myLookAndFeel->colourTheme.primary));
+    addAndMakeVisible (shapeButtonReset.get());
+    shapeButtonReset->setName ("shapeButtonReset");
+
+    shapeButtonReset->setBounds (56, 24, 24, 24);
+
 
     //[UserPreSize]
     sliderActiveSustain->setValue (activityTimer->activeSustain->get());
     activityTimer->addViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
     audioProcessor.addSignalIndicator (signalIndicator.get());
     expireTimeProgressBar->setPercentageDisplay (false);
+
+    shapeButtonReset->setTooltip ("Reset timer");
+    shapeButtonReset->addListener (this);
+    shapeButtonReset->setShape (myLookAndFeel->getResetButtonPath(), false, true, false);
     //[/UserPreSize]
 
     setSize (625, 260);
 
 
     //[Constructor] You can add your own custom stuff here..
+
     //[/Constructor]
 }
 
@@ -109,12 +113,12 @@ ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor()
     //[/Destructor_pre]
 
     expireTimeProgressBar = nullptr;
-    textButtonReset = nullptr;
     secondsViewer = nullptr;
     minutesViewer = nullptr;
     hoursViewer = nullptr;
     sliderActiveSustain = nullptr;
     signalIndicator = nullptr;
+    shapeButtonReset = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -249,12 +253,8 @@ void ActivityTimerAudioProcessorEditor::resized()
 
 void ActivityTimerAudioProcessorEditor::buttonClicked (juce::Button* buttonThatWasClicked)
 {
-    //[UserbuttonClicked_Pre]
-    //[/UserbuttonClicked_Pre]
-
-    if (buttonThatWasClicked == textButtonReset.get())
+    if (buttonThatWasClicked == shapeButtonReset.get())
     {
-        //[UserButtonCode_textButtonReset] -- add your button handler code here..
         juce::AlertWindow::showOkCancelBox (juce::MessageBoxIconType::NoIcon, "Reset timer",
                                             "This operation cannot be undone, continue?",
                                             {}, {}, {},
@@ -265,11 +265,7 @@ void ActivityTimerAudioProcessorEditor::buttonClicked (juce::Button* buttonThatW
                                                     activityTimer->resetTimer();
                                                 }
                                             }));
-        //[/UserButtonCode_textButtonReset]
     }
-
-    //[UserbuttonClicked_Post]
-    //[/UserbuttonClicked_Post]
 }
 
 void ActivityTimerAudioProcessorEditor::sliderValueChanged (juce::Slider* sliderThatWasMoved)
@@ -332,9 +328,6 @@ BEGIN_JUCER_METADATA
   <GENERICCOMPONENT name="expireTimeProgressBar" id="5b9b34c3e2d42153" memberName="expireTimeProgressBar"
                     virtualName="" explicitFocusOrder="0" pos="0 248 624 24" class="juce::ProgressBar"
                     params="activityTimer-&gt;expirePercentage"/>
-  <TEXTBUTTON name="textButtonReset" id="d22744b80c4e49fb" memberName="textButtonReset"
-              virtualName="" explicitFocusOrder="0" pos="32 24 72 24" buttonText="Reset"
-              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <GENERICCOMPONENT name="secondsViewer" id="90009543150fc52b" memberName="secondsViewer"
                     virtualName="" explicitFocusOrder="0" pos="432 72 160 100" class="TimeViewer"
                     params="activityTimer-&gt;getSeconds(), MAX_SECONDS"/>
@@ -352,6 +345,9 @@ BEGIN_JUCER_METADATA
   <GENERICCOMPONENT name="signalIndicator" id="6b00bd3e186e3c3a" memberName="signalIndicator"
                     virtualName="" explicitFocusOrder="0" pos="544 24 24 24" class="SignalIndicator"
                     params=""/>
+  <GENERICCOMPONENT name="shapeButtonReset" id="cbf3a07047fff8e8" memberName="shapeButtonReset"
+                    virtualName="" explicitFocusOrder="0" pos="56 24 24 24" class="juce::ShapeButton"
+                    params="&quot;shapeButtonReset&quot;, myLookAndFeel-&gt;colourTheme.primaryLight, myLookAndFeel-&gt;colourTheme.primaryAccent, myLookAndFeel-&gt;colourTheme.primary"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
