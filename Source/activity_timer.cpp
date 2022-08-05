@@ -14,6 +14,7 @@
 
 ActivityTimer::ActivityTimer() : Timer()
 {
+    silence.reset(new juce::AudioParameterBool(0, "Silence", false));
     hours.reset(new juce::AudioParameterInt(1, "Hour", 0, MAX_HOURS, 0));
     minutes.reset(new juce::AudioParameterInt(2, "Minute", 0, MAX_MINUTES, 0));
     seconds.reset(new juce::AudioParameterInt(3, "Second", 0, MAX_SECONDS, 0));
@@ -28,6 +29,7 @@ ActivityTimer::~ActivityTimer()
     minutes = nullptr;
     seconds = nullptr;
     activeSustain = nullptr;
+    silence = nullptr;
 }
 
 void ActivityTimer::timerCallback()
@@ -36,8 +38,11 @@ void ActivityTimer::timerCallback()
     debugPrintTime();
 
     increase(seconds.get());
-    activeExpireTime--;
-    refreshExpirePercentage();
+    if (silence->get())
+    {
+        activeExpireTime--;
+        refreshExpirePercentage();
+    }
 
     if (seconds->get() < MAX_SECONDS) return;
 
@@ -105,6 +110,15 @@ void ActivityTimer::refreshExpirePercentage ()
     expirePercentage = static_cast<double> (activeExpireTime) / activeSustain->get();
 }
 
+void ActivityTimer::setSilenceState (bool isSilence)
+{
+    *silence = isSilence;
+    if (!isSilence)
+    {
+        activate();
+    }
+}
+
 void ActivityTimer::addViewers(TimeViewer* hoursViewer, TimeViewer* minutesViewer,
                                TimeViewer* secondsViewer) const
 {
@@ -119,6 +133,16 @@ void ActivityTimer::removeViewers(TimeViewer* hoursViewer, TimeViewer* minutesVi
     hours->removeListener(hoursViewer);
     minutes->removeListener(minutesViewer);
     seconds->removeListener(secondsViewer);
+}
+
+void ActivityTimer::addSignalIndicator (SignalIndicator* signalIndicator) const
+{
+    silence->addListener (signalIndicator);
+}
+
+void ActivityTimer::removeSignalIndicator (SignalIndicator* signalIndicator) const
+{
+    silence->removeListener (signalIndicator);
 }
 
 bool ActivityTimer::isActive() const

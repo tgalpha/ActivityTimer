@@ -23,12 +23,10 @@ ActivityTimerAudioProcessor::ActivityTimerAudioProcessor ()
 #endif
 {
     activityTimer.reset(new ActivityTimer());
-    silence.reset(new juce::AudioParameterBool(0, "silence", false));
 }
 
 ActivityTimerAudioProcessor::~ActivityTimerAudioProcessor ()
 {
-    silence = nullptr;
 }
 
 //==============================================================================
@@ -194,15 +192,7 @@ void ActivityTimerAudioProcessor::setStateInformation (const void* data, int siz
     activityTimer->startTimer();
 }
 
-void ActivityTimerAudioProcessor::addSignalIndicator (SignalIndicator* signalIndicator) const
-{
-    silence->addListener (signalIndicator);
-}
 
-void ActivityTimerAudioProcessor::removeSignalIndicator (SignalIndicator* signalIndicator) const
-{
-    silence->removeListener (signalIndicator);
-}
 ActivityTimer* ActivityTimerAudioProcessor::getTimer() const
 {
     return activityTimer.get();
@@ -220,13 +210,12 @@ void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal (const juce::Audio
         {
             if (!floatIsNearlyZero (reader[i]))
             {
-                *silence = false;
-                activityTimer->activate();
+                activityTimer->setSilenceState(false);
                 return;
             }
         }
     }
-    *silence = true;
+    activityTimer->setSilenceState(true);
 }
 
 bool ActivityTimerAudioProcessor::floatIsNearlyZero (const float floatNum)

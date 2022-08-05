@@ -59,9 +59,6 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    void addSignalIndicator (SignalIndicator* signalIndicator) const;
-    void removeSignalIndicator (SignalIndicator* signalIndicator) const;
-
     ActivityTimer* getTimer () const;
 
 private:
@@ -72,5 +69,4 @@ private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ActivityTimerAudioProcessor)
     std::unique_ptr<ActivityTimer> activityTimer;
-    std::unique_ptr<juce::AudioParameterBool> silence;
 };
