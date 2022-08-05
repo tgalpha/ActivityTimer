@@ -7,10 +7,25 @@ Replace the implementation of visibilityChanged and timerCallback in juce_Progre
 
 namespace juce
 {
+    void ProgressBar::setRefreshRate (int newRefreshRate)
+    {
+        refreshRate = newRefreshRate;
+        if (isTimerRunning())
+        {
+            stopTimer();
+            startTimerHz (refreshRate);
+        } 
+    }
+
+    void ProgressBar::setResponseSpeed (float newResponseSpeed)
+    {
+        responseSpeed = newResponseSpeed;
+    }
+    
     void ProgressBar::visibilityChanged ()
     {
         if (isVisible())
-            startTimerHz (60);
+            startTimerHz (refreshRate);
         else
             stopTimer();
     }
@@ -26,7 +41,7 @@ namespace juce
             || newProgress < 0 || newProgress >= 1.0
             || currentMessage != displayedMessage)
         {
-            if (std::abs (newProgress - progress) < 0.005
+            if (std::abs (newProgress - progress) < responseSpeed
                 && newProgress >= 0 && newProgress <= 1.0
                 && currentValue >= 0 && currentValue <= 1.0)
             {

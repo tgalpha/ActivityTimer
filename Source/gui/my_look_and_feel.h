@@ -23,6 +23,7 @@ namespace theme
         MyLookAndFeel ();
 
         static Path getResetButtonPath ();
+        static Font getTimerFont(float height);
 
         void drawButtonBackground (Graphics& g,
                                    Button& button,

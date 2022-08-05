@@ -131,7 +131,7 @@ void ActivityTimer::increase(juce::AudioParameterInt* targetMember)
     *targetMember = targetMember->get() + 1;
 }
 
-void ActivityTimer::debugPrintTime() const
+void ActivityTimer::debugPrintTime()
 {
 #ifdef DEBUG
     std::cout << hours->get() << ':' << minutes->get() << ':' << seconds->get() << std::endl;

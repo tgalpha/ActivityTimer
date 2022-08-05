@@ -145,8 +145,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\source\gui\smooth_progress_bar.cpp"/>
     <ClCompile Include="..\..\Source\gui\my_look_and_feel.cpp"/>
+    <ClCompile Include="..\..\source\gui\smooth_progress_bar.cpp"/>
     <ClCompile Include="..\..\Source\gui\plugin_editor.cpp"/>
     <ClCompile Include="..\..\Source\gui\time_viewer.cpp"/>
     <ClCompile Include="..\..\Source\gui\signal_indicator.cpp"/>
@@ -2282,6 +2282,7 @@
     <ClCompile Include="..\..\source\modules\juce_gui_extra\juce_gui_extra.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_devices.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_formats.cpp"/>
@@ -3204,10 +3205,12 @@
     <ClInclude Include="..\..\source\modules\juce_gui_extra\native\juce_mac_NSViewFrameWatcher.h"/>
     <ClInclude Include="..\..\source\modules\juce_gui_extra\juce_gui_extra.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\AppConfig.h"/>
+    <ClInclude Include="..\..\JuceLibraryCode\BinaryData.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\JucePluginDefines.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\font\Oxanium-Regular.ttf"/>
     <None Include="..\..\source\modules\juce_audio_devices\native\oboe\CMakeLists.txt"/>
     <None Include="..\..\source\modules\juce_audio_devices\native\oboe\README.md"/>
     <None Include="..\..\source\modules\juce_audio_formats\codecs\flac\Flac Licence.txt"/>

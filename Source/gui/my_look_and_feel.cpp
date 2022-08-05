@@ -41,6 +41,14 @@ juce::Path theme::MyLookAndFeel::getResetButtonPath ()
     return path;
 }
 
+juce::Font theme::MyLookAndFeel::getTimerFont (const float height)
+{
+    static auto typeface = Typeface::createSystemTypefaceFor (BinaryData::OxaniumRegular_ttf, BinaryData::OxaniumRegular_ttfSize);
+    auto font = Font (typeface);
+    font.setHeight (height);
+    return font;
+}
+
 void theme::MyLookAndFeel::drawButtonBackground (Graphics& g, Button& button, const Colour& backgroundColour,
                                                  bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)
 {

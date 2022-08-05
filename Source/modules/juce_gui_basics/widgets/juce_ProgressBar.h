@@ -81,6 +81,10 @@ public:
     */
     void setTextToDisplay (const String& text);
 
+    void setRefreshRate (int newRefreshRate);
+
+    void setResponseSpeed (float newResponseSpeed);
+
 
     //==============================================================================
     /** A set of colour IDs to use to change the colour of various aspects of the bar.
@@ -129,6 +133,10 @@ protected:
     void colourChanged() override;
 
 private:
+    // custom params
+    int refreshRate = 60;
+    float responseSpeed = 0.005f;
+        
     double& progress;
     double currentValue;
     bool displayPercentage;

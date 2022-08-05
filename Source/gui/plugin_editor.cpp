@@ -90,7 +90,6 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
     activityTimer->addViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
     audioProcessor.addSignalIndicator (signalIndicator.get());
     expireTimeProgressBar->setPercentageDisplay (false);
-
     shapeButtonReset->setTooltip ("Reset timer");
     shapeButtonReset->addListener (this);
     shapeButtonReset->setShape (myLookAndFeel->getResetButtonPath(), false, true, false);

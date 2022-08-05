@@ -23,7 +23,9 @@
 #include "time_viewer.h"
 
 
+
 //[MiscUserDefs] You can add your own user definitions and misc code here...
+#include "my_look_and_feel.h"
 //[/MiscUserDefs]
 
 //==============================================================================
@@ -64,14 +66,14 @@ void TimeViewer::paint (juce::Graphics& g)
     //[/UserPrePaint]
 
     //[UserPaint] Add your own custom painting code here..
+    const juce::Font timerFont = theme::MyLookAndFeel::getTimerFont(100.0f);
+    
     {
         int x = 0, y = 0, width = 72, height = 100;
         juce::String text = std::to_string(tens);
         juce::Colour fillColour = juce::Colour (0xff395b64);
-        //[UserPaintCustomArguments] Customize the painting arguments here..
-        //[/UserPaintCustomArguments]
+        g.setFont (timerFont);
         g.setColour (fillColour);
-        g.setFont (juce::Font (juce::Font::getDefaultSansSerifFontName(),90.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
         g.drawText (text, x, y, width, height,
                     juce::Justification::centred, true);
     }
@@ -80,10 +82,8 @@ void TimeViewer::paint (juce::Graphics& g)
         int x = 88, y = 0, width = 72, height = 100;
         juce::String text = std::to_string(ones);
         juce::Colour fillColour = juce::Colour (0xff395b64);
-        //[UserPaintCustomArguments] Customize the painting arguments here..
-        //[/UserPaintCustomArguments]
+        g.setFont (timerFont);
         g.setColour (fillColour);
-        g.setFont (juce::Font (juce::Font::getDefaultSansSerifFontName(),90.00f, juce::Font::plain).withTypefaceStyle ("Regular"));
         g.drawText (text, x, y, width, height,
                     juce::Justification::centred, true);
     }

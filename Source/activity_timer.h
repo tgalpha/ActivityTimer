@@ -39,7 +39,7 @@ public:
     double expirePercentage = 0.0;
 private:
     static void increase(juce::AudioParameterInt* targetMember);
-    void debugPrintTime() const;
+    void debugPrintTime();
 
     const int intervalInMilliseconds = 1000;
 
