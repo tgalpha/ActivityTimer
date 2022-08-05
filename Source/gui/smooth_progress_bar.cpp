@@ -1,9 +1,5 @@
 /*
-
-    [Optional]
-
-    Replace the implementation of visibilityChanged and timerCallback in juce_ProgressBar.cpp to get a smooth ProgressBar
-
+Replace the implementation of visibilityChanged and timerCallback in juce_ProgressBar.cpp to get a smooth ProgressBar
 */
 
 #include <JuceHeader.h>
