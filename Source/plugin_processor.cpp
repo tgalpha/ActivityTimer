@@ -220,7 +220,7 @@ void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal (const juce::Audio
 
 bool ActivityTimerAudioProcessor::floatIsNearlyZero (const float floatNum)
 {
-    constexpr float epsilon = 1e-6f;
+    constexpr float epsilon = 1e-4f;
     return std::abs(floatNum) <= epsilon;
 }
 
