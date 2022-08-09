@@ -27,9 +27,10 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-SignalIndicator::SignalIndicator ()
+SignalIndicator::SignalIndicator (bool hasSignal)
 {
     //[Constructor_pre] You can add your own custom stuff here..
+    isLight = hasSignal;
     //[/Constructor_pre]
 
 
@@ -105,7 +106,7 @@ void SignalIndicator::parameterValueChanged (int parameterIndex, float newValue)
     if (! lock.lockWasGained())
         return;
 
-    isLight = !newValue;
+    isLight = newValue;
 
     repaint();
 }
@@ -128,9 +129,9 @@ BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="SignalIndicator" componentName=""
                  parentClasses="public juce::Component, public juce::AudioProcessorParameter::Listener, public juce::SettableTooltipClient"
-                 constructorParams="" variableInitialisers="" snapPixels="8" snapActive="1"
-                 snapShown="1" overlayOpacity="0.330" fixedSize="1" initialWidth="24"
-                 initialHeight="24">
+                 constructorParams="bool hasSignal" variableInitialisers="" snapPixels="8"
+                 snapActive="1" snapShown="1" overlayOpacity="0.330" fixedSize="1"
+                 initialWidth="24" initialHeight="24">
   <BACKGROUND backgroundColour="323e44">
     <ELLIPSE pos="0 0 24 24" fill=" radial: 12 12, 0 0, 0=ff395b64, 1=ff2c3333"
              hasStroke="0"/>

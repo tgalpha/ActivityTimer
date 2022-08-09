@@ -19,6 +19,7 @@
 
 //[Headers] You can add your own extra header files here...
 #include  "../Constants.h"
+#include "preferences_editor.h"
 //[/Headers]
 
 #include "plugin_editor.h"
@@ -41,7 +42,7 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
     addAndMakeVisible (expireTimeProgressBar.get());
     expireTimeProgressBar->setName ("expireTimeProgressBar");
 
-    expireTimeProgressBar->setBounds (0, 248, 624, 24);
+    expireTimeProgressBar->setBounds (0, 216, 624, 24);
 
     secondsViewer.reset (new TimeViewer (activityTimer->getSeconds(), MAX_SECONDS));
     addAndMakeVisible (secondsViewer.get());
@@ -61,18 +62,7 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
 
     hoursViewer->setBounds (32, 72, 160, 100);
 
-    sliderActiveSustain.reset (new juce::Slider ("sliderActiveSustain"));
-    addAndMakeVisible (sliderActiveSustain.get());
-    sliderActiveSustain->setTooltip (TRANS("ActivateSustain: The duration(seconds) that timer remains active when a signal is received"));
-    sliderActiveSustain->setRange (0, 60, 1);
-    sliderActiveSustain->setSliderStyle (juce::Slider::LinearHorizontal);
-    sliderActiveSustain->setTextBoxStyle (juce::Slider::TextBoxLeft, false, 30, 20);
-    sliderActiveSustain->addListener (this);
-    sliderActiveSustain->setSkewFactor (0.5);
-
-    sliderActiveSustain->setBounds (32, 200, 160, 24);
-
-    signalIndicator.reset (new SignalIndicator());
+    signalIndicator.reset (new SignalIndicator (activityTimer->getSignalState()));
     addAndMakeVisible (signalIndicator.get());
     signalIndicator->setName ("signalIndicator");
 
@@ -82,20 +72,27 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
     addAndMakeVisible (shapeButtonReset.get());
     shapeButtonReset->setName ("shapeButtonReset");
 
-    shapeButtonReset->setBounds (56, 24, 24, 24);
+    shapeButtonReset->setBounds (80, 24, 24, 24);
+
+    shapeButtonSettings.reset (new juce::ShapeButton ("shapeButtonSettings", myLookAndFeel->colourTheme.primaryLight, myLookAndFeel->colourTheme.primaryAccent, myLookAndFeel->colourTheme.primary));
+    addAndMakeVisible (shapeButtonSettings.get());
+    shapeButtonSettings->setName ("shapeButtonSettings");
+
+    shapeButtonSettings->setBounds (32, 24, 24, 24);
 
 
     //[UserPreSize]
-    sliderActiveSustain->setValue (activityTimer->activeSustain->get());
     activityTimer->addViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
     activityTimer->addSignalIndicator (signalIndicator.get());
     expireTimeProgressBar->setPercentageDisplay (false);
     shapeButtonReset->setTooltip ("Reset timer");
     shapeButtonReset->addListener (this);
     shapeButtonReset->setShape (myLookAndFeel->getResetButtonPath(), false, true, false);
+    shapeButtonSettings->addListener (this);
+    shapeButtonSettings->setShape (myLookAndFeel->getSettingsButtonPath(), false, true, false);
     //[/UserPreSize]
 
-    setSize (625, 260);
+    setSize (625, 230);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -115,9 +112,9 @@ ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor()
     secondsViewer = nullptr;
     minutesViewer = nullptr;
     hoursViewer = nullptr;
-    sliderActiveSustain = nullptr;
     signalIndicator = nullptr;
     shapeButtonReset = nullptr;
+    shapeButtonSettings = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -250,24 +247,6 @@ void ActivityTimerAudioProcessorEditor::resized()
     //[/UserResized]
 }
 
-void ActivityTimerAudioProcessorEditor::sliderValueChanged (juce::Slider* sliderThatWasMoved)
-{
-    //[UsersliderValueChanged_Pre]
-    //[/UsersliderValueChanged_Pre]
-
-    if (sliderThatWasMoved == sliderActiveSustain.get())
-    {
-        //[UserSliderCode_sliderActiveSustain] -- add your slider handling code here..
-        const double sliderValue = sliderThatWasMoved->getValue();
-        *(activityTimer->activeSustain) = juce::roundToInt (sliderValue);
-        activityTimer->refreshExpirePercentage();
-        //[/UserSliderCode_sliderActiveSustain]
-    }
-
-    //[UsersliderValueChanged_Post]
-    //[/UsersliderValueChanged_Post]
-}
-
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
@@ -286,6 +265,12 @@ void ActivityTimerAudioProcessorEditor::buttonClicked (juce::Button* buttonThatW
                                                 }
                                             }));
     }
+
+    if (buttonThatWasClicked == shapeButtonSettings.get())
+    {
+        auto preferencesEditor = std::make_unique<PreferencesEditor>(activityTimer, audioProcessor.getSerializableParameters());
+        juce::CallOutBox::launchAsynchronously (std::move (preferencesEditor), shapeButtonSettings->getScreenBounds(), nullptr);
+    }
 }
 //[/MiscUserCode]
 
@@ -303,7 +288,7 @@ BEGIN_JUCER_METADATA
                  componentName="" parentClasses="public juce::AudioProcessorEditor, public juce::Button::Listener"
                  constructorParams="ActivityTimerAudioProcessor&amp; p" variableInitialisers="AudioProcessorEditor (&amp;p), audioProcessor (p)"
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="1" initialWidth="625" initialHeight="260">
+                 fixedSize="1" initialWidth="625" initialHeight="230">
   <BACKGROUND backgroundColour="ff2c3333">
     <RECT pos="0 0 625 260" fill=" radial: 312.5 130, 40 -40, 0=4f395b64, 1=ff2c3333"
           hasStroke="0"/>
@@ -324,7 +309,7 @@ BEGIN_JUCER_METADATA
     <ROUNDRECT pos="32 72 72 100" cornerSize="10.0" fill="solid: ffe7f6f2" hasStroke="0"/>
   </BACKGROUND>
   <GENERICCOMPONENT name="expireTimeProgressBar" id="5b9b34c3e2d42153" memberName="expireTimeProgressBar"
-                    virtualName="" explicitFocusOrder="0" pos="0 248 624 24" class="juce::ProgressBar"
+                    virtualName="" explicitFocusOrder="0" pos="0 216 624 24" class="juce::ProgressBar"
                     params="activityTimer-&gt;expirePercentage"/>
   <GENERICCOMPONENT name="secondsViewer" id="90009543150fc52b" memberName="secondsViewer"
                     virtualName="" explicitFocusOrder="0" pos="432 72 160 100" class="TimeViewer"
@@ -335,17 +320,15 @@ BEGIN_JUCER_METADATA
   <GENERICCOMPONENT name="hoursViewer" id="b4e4b2945914687a" memberName="hoursViewer"
                     virtualName="" explicitFocusOrder="0" pos="32 72 160 100" class="TimeViewer"
                     params="activityTimer-&gt;getHours(), MAX_SECONDS"/>
-  <SLIDER name="sliderActiveSustain" id="bd4a151633c1aa7e" memberName="sliderActiveSustain"
-          virtualName="" explicitFocusOrder="0" pos="32 200 160 24" tooltip="ActivateSustain: The duration(seconds) that timer remains active when a signal is received"
-          min="0.0" max="60.0" int="1.0" style="LinearHorizontal" textBoxPos="TextBoxLeft"
-          textBoxEditable="1" textBoxWidth="30" textBoxHeight="20" skewFactor="0.5"
-          needsCallback="1"/>
   <GENERICCOMPONENT name="signalIndicator" id="6b00bd3e186e3c3a" memberName="signalIndicator"
                     virtualName="" explicitFocusOrder="0" pos="544 24 24 24" class="SignalIndicator"
-                    params=""/>
+                    params="activityTimer-&gt;getSignalState()"/>
   <GENERICCOMPONENT name="shapeButtonReset" id="cbf3a07047fff8e8" memberName="shapeButtonReset"
-                    virtualName="" explicitFocusOrder="0" pos="56 24 24 24" class="juce::ShapeButton"
+                    virtualName="" explicitFocusOrder="0" pos="80 24 24 24" class="juce::ShapeButton"
                     params="&quot;shapeButtonReset&quot;, myLookAndFeel-&gt;colourTheme.primaryLight, myLookAndFeel-&gt;colourTheme.primaryAccent, myLookAndFeel-&gt;colourTheme.primary"/>
+  <GENERICCOMPONENT name="shapeButtonSettings" id="fe57de16ac366dcd" memberName="shapeButtonSettings"
+                    virtualName="" explicitFocusOrder="0" pos="32 24 24 24" class="juce::ShapeButton"
+                    params="&quot;shapeButtonSettings&quot;, myLookAndFeel-&gt;colourTheme.primaryLight, myLookAndFeel-&gt;colourTheme.primaryAccent, myLookAndFeel-&gt;colourTheme.primary"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

@@ -21,6 +21,7 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include <JuceHeader.h>
+#include "../activity_timer.h"
 //[/Headers]
 
 
@@ -33,37 +34,41 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class SignalIndicator  : public juce::Component,
-                         public juce::AudioProcessorParameter::Listener,
-                         public juce::SettableTooltipClient
+class PreferencesEditor  : public juce::Component,
+                           public juce::Slider::Listener
 {
 public:
     //==============================================================================
-    SignalIndicator (bool hasSignal);
-    ~SignalIndicator() override;
+    PreferencesEditor (ActivityTimer* t, SerializableParameters* s);
+    ~PreferencesEditor() override;
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    void parameterValueChanged (int parameterIndex, float newValue) override;
-    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override;
-
     //[/UserMethods]
 
     void paint (juce::Graphics& g) override;
     void resized() override;
+    void sliderValueChanged (juce::Slider* sliderThatWasMoved) override;
 
 
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-    bool isLight = false;
+    ActivityTimer* activityTimer;
+    SerializableParameters* serializableParameters;
+    
+    juce::TooltipWindow tooltipWindow { this, 500 };
     //[/UserVariables]
 
     //==============================================================================
+    std::unique_ptr<juce::Slider> sliderActiveSustain;
+    std::unique_ptr<juce::Label> labelActivitySustain;
+    std::unique_ptr<juce::Label> labelSensitivity;
+    std::unique_ptr<juce::Slider> sliderSensitivity;
 
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SignalIndicator)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PreferencesEditor)
 };
 
 //[EndFile] You can add extra defines here...

@@ -12,24 +12,17 @@
 
 #include "Constants.h"
 
-ActivityTimer::ActivityTimer() : Timer()
+ActivityTimer::ActivityTimer(SerializableParameters* s) : Timer()
 {
-    silence.reset(new juce::AudioParameterBool(0, "Silence", false));
-    hours.reset(new juce::AudioParameterInt(1, "Hour", 0, MAX_HOURS, 0));
-    minutes.reset(new juce::AudioParameterInt(2, "Minute", 0, MAX_MINUTES, 0));
-    seconds.reset(new juce::AudioParameterInt(3, "Second", 0, MAX_SECONDS, 0));
-    activeSustain.reset(new juce::AudioParameterInt(4, "ActiveSustain", 0, MAX_ACTIVE_SUSTAIN, DEFAULT_ACTIVE_SUSTAIN));
+    serializableParameters = s;
+    hasSignal.reset(new juce::AudioParameterBool(0, "hasSignal", false));
     startTimer();
 }
 
 ActivityTimer::~ActivityTimer()
 {
     stopTimer();
-    hours = nullptr;
-    minutes = nullptr;
-    seconds = nullptr;
-    activeSustain = nullptr;
-    silence = nullptr;
+    hasSignal = nullptr;
 }
 
 void ActivityTimer::timerCallback()
@@ -37,22 +30,22 @@ void ActivityTimer::timerCallback()
     if (!isActive()) return;
     debugPrintTime();
 
-    increase(seconds.get());
-    if (silence->get())
+    increase(serializableParameters->seconds.get());
+    if (!hasSignal->get())
     {
         activeExpireTime--;
         refreshExpirePercentage();
     }
 
-    if (seconds->get() < MAX_SECONDS) return;
+    if (serializableParameters->seconds->get() < MAX_SECONDS) return;
 
-    increase(minutes.get());
-    *seconds = 0;
+    increase(serializableParameters->minutes.get());
+    *serializableParameters->seconds = 0;
 
-    if (minutes->get() < MAX_MINUTES) return;
+    if (serializableParameters->minutes->get() < MAX_MINUTES) return;
 
-    increase(hours.get());
-    *minutes = 0;
+    increase(serializableParameters->hours.get());
+    *serializableParameters->minutes = 0;
 }
 
 void ActivityTimer::startTimer()
@@ -62,58 +55,50 @@ void ActivityTimer::startTimer()
 
 int ActivityTimer::getHours() const
 {
-    return hours->get();
+    return serializableParameters->hours->get();
 }
 
 int ActivityTimer::getMinutes() const
 {
-    return minutes->get();
+    return serializableParameters->minutes->get();
 }
 
 int ActivityTimer::getSeconds() const
 {
-    return seconds->get();
-}
-
-void ActivityTimer::setTimerState(int hourValue, int minuteValue, int secondValue, int activeSustainValue) const
-{
-    *hours = hourValue;
-    *minutes = minuteValue;
-    *seconds = secondValue;
-    *activeSustain = activeSustainValue;
+    return serializableParameters->seconds->get();
 }
 
 void ActivityTimer::activate()
 {
-    activeExpireTime = activeSustain->get();
+    activeExpireTime = serializableParameters->activeSustain->get();
     refreshExpirePercentage();
 }
 
 void ActivityTimer::resetTimer()
 {
     stopTimer();
-    *hours = 0;
-    *minutes = 0;
-    *seconds = 0;
+    *serializableParameters->hours = 0;
+    *serializableParameters->minutes = 0;
+    *serializableParameters->seconds = 0;
     startTimer();
 }
 
 void ActivityTimer::refreshExpirePercentage ()
 {
-    activeExpireTime = std::min (activeSustain->get(), activeExpireTime);
+    activeExpireTime = std::min (serializableParameters->activeSustain->get(), activeExpireTime);
     if (activeExpireTime == 0)
     {
         expirePercentage = 0.0;
         return;
     }
     
-    expirePercentage = static_cast<double> (activeExpireTime) / activeSustain->get();
+    expirePercentage = static_cast<double> (activeExpireTime) / serializableParameters->activeSustain->get();
 }
 
-void ActivityTimer::setSilenceState (bool isSilence)
+void ActivityTimer::setSignalState (bool newValue)
 {
-    *silence = isSilence;
-    if (!isSilence)
+    *hasSignal = newValue;
+    if (newValue)
     {
         activate();
     }
@@ -122,32 +107,37 @@ void ActivityTimer::setSilenceState (bool isSilence)
 void ActivityTimer::addViewers(TimeViewer* hoursViewer, TimeViewer* minutesViewer,
                                TimeViewer* secondsViewer) const
 {
-    hours->addListener(hoursViewer);
-    minutes->addListener(minutesViewer);
-    seconds->addListener(secondsViewer);
+    serializableParameters->hours->addListener(hoursViewer);
+    serializableParameters->minutes->addListener(minutesViewer);
+    serializableParameters->seconds->addListener(secondsViewer);
 }
 
 void ActivityTimer::removeViewers(TimeViewer* hoursViewer, TimeViewer* minutesViewer,
     TimeViewer* secondsViewer) const
 {
-    hours->removeListener(hoursViewer);
-    minutes->removeListener(minutesViewer);
-    seconds->removeListener(secondsViewer);
+    serializableParameters->hours->removeListener(hoursViewer);
+    serializableParameters->minutes->removeListener(minutesViewer);
+    serializableParameters->seconds->removeListener(secondsViewer);
 }
 
 void ActivityTimer::addSignalIndicator (SignalIndicator* signalIndicator) const
 {
-    silence->addListener (signalIndicator);
+    hasSignal->addListener (signalIndicator);
 }
 
 void ActivityTimer::removeSignalIndicator (SignalIndicator* signalIndicator) const
 {
-    silence->removeListener (signalIndicator);
+    hasSignal->removeListener (signalIndicator);
 }
 
 bool ActivityTimer::isActive() const
 {
     return activeExpireTime > 0;
+}
+
+bool ActivityTimer::getSignalState () const
+{
+    return hasSignal->get();
 }
 
 void ActivityTimer::increase(juce::AudioParameterInt* targetMember)
@@ -158,6 +148,6 @@ void ActivityTimer::increase(juce::AudioParameterInt* targetMember)
 void ActivityTimer::debugPrintTime()
 {
 #ifdef DEBUG
-    std::cout << hours->get() << ':' << minutes->get() << ':' << seconds->get() << std::endl;
+    std::cout << serializableParameters->hours->get() << ':' << serializableParameters->minutes->get() << ':' << serializableParameters->seconds->get() << std::endl;
 #endif
 }

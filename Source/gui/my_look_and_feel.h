@@ -12,10 +12,12 @@
 
 
 #include <JuceHeader.h>
+#include "shape_button_paths.h"
 
 namespace theme
 {
     using namespace juce;
+    using namespace ShapeButtonPaths;
 
     class MyLookAndFeel : public LookAndFeel_V4
     {
@@ -23,6 +25,7 @@ namespace theme
         MyLookAndFeel ();
 
         static Path getResetButtonPath ();
+        static Path getSettingsButtonPath ();
         static Font getTimerFont(float height);
 
         void drawButtonBackground (Graphics& g,

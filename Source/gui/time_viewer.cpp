@@ -23,7 +23,6 @@
 #include "time_viewer.h"
 
 
-
 //[MiscUserDefs] You can add your own user definitions and misc code here...
 #include "my_look_and_feel.h"
 //[/MiscUserDefs]
@@ -67,7 +66,7 @@ void TimeViewer::paint (juce::Graphics& g)
 
     //[UserPaint] Add your own custom painting code here..
     const juce::Font timerFont = theme::MyLookAndFeel::getTimerFont(100.0f);
-    
+
     {
         int x = 0, y = 0, width = 72, height = 100;
         juce::String text = std::to_string(tens);

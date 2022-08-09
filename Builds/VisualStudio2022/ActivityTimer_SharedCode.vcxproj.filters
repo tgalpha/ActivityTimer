@@ -583,6 +583,9 @@
     <ClCompile Include="..\..\Source\gui\my_look_and_feel.cpp">
       <Filter>ActivityTimer\source\gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\gui\preferences_editor.cpp">
+      <Filter>ActivityTimer\source\gui</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\source\gui\smooth_progress_bar.cpp">
       <Filter>ActivityTimer\source\gui</Filter>
     </ClCompile>
@@ -599,6 +602,9 @@
       <Filter>ActivityTimer\source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\activity_timer.cpp">
+      <Filter>ActivityTimer\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\serializable_parameters.cpp">
       <Filter>ActivityTimer\source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
@@ -2907,7 +2913,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\source\gui\shape_button_paths.h">
+      <Filter>ActivityTimer\source\gui</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\gui\my_look_and_feel.h">
+      <Filter>ActivityTimer\source\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\gui\preferences_editor.h">
       <Filter>ActivityTimer\source\gui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\gui\plugin_editor.h">
@@ -2926,6 +2938,9 @@
       <Filter>ActivityTimer\source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\constants.h">
+      <Filter>ActivityTimer\source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\serializable_parameters.h">
       <Filter>ActivityTimer\source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">

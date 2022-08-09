@@ -39,8 +39,7 @@
                                                                     //[/Comments]
 */
 class ActivityTimerAudioProcessorEditor  : public juce::AudioProcessorEditor,
-                                           public juce::Button::Listener,
-                                           public juce::Slider::Listener
+                                           public juce::Button::Listener
 {
 public:
     //==============================================================================
@@ -54,7 +53,6 @@ public:
 
     void paint (juce::Graphics& g) override;
     void resized() override;
-    void sliderValueChanged (juce::Slider* sliderThatWasMoved) override;
 
 
 
@@ -73,9 +71,9 @@ private:
     std::unique_ptr<TimeViewer> secondsViewer;
     std::unique_ptr<TimeViewer> minutesViewer;
     std::unique_ptr<TimeViewer> hoursViewer;
-    std::unique_ptr<juce::Slider> sliderActiveSustain;
     std::unique_ptr<SignalIndicator> signalIndicator;
     std::unique_ptr<juce::ShapeButton> shapeButtonReset;
+    std::unique_ptr<juce::ShapeButton> shapeButtonSettings;
 
 
     //==============================================================================

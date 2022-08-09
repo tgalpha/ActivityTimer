@@ -146,12 +146,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\gui\my_look_and_feel.cpp"/>
+    <ClCompile Include="..\..\source\gui\preferences_editor.cpp"/>
     <ClCompile Include="..\..\source\gui\smooth_progress_bar.cpp"/>
     <ClCompile Include="..\..\Source\gui\plugin_editor.cpp"/>
     <ClCompile Include="..\..\Source\gui\time_viewer.cpp"/>
     <ClCompile Include="..\..\Source\gui\signal_indicator.cpp"/>
     <ClCompile Include="..\..\Source\plugin_processor.cpp"/>
     <ClCompile Include="..\..\Source\activity_timer.cpp"/>
+    <ClCompile Include="..\..\source\serializable_parameters.cpp"/>
     <ClCompile Include="..\..\source\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -2304,13 +2306,16 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\source\gui\shape_button_paths.h"/>
     <ClInclude Include="..\..\Source\gui\my_look_and_feel.h"/>
+    <ClInclude Include="..\..\source\gui\preferences_editor.h"/>
     <ClInclude Include="..\..\Source\gui\plugin_editor.h"/>
     <ClInclude Include="..\..\Source\gui\time_viewer.h"/>
     <ClInclude Include="..\..\Source\gui\signal_indicator.h"/>
     <ClInclude Include="..\..\Source\plugin_processor.h"/>
     <ClInclude Include="..\..\Source\activity_timer.h"/>
     <ClInclude Include="..\..\Source\constants.h"/>
+    <ClInclude Include="..\..\source\serializable_parameters.h"/>
     <ClInclude Include="..\..\source\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\source\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>
     <ClInclude Include="..\..\source\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>

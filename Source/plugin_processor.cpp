@@ -22,11 +22,14 @@ ActivityTimerAudioProcessor::ActivityTimerAudioProcessor ()
     )
 #endif
 {
-    activityTimer.reset(new ActivityTimer());
+    serializableParameters.reset (new SerializableParameters());
+    activityTimer.reset(new ActivityTimer(serializableParameters.get()));
 }
 
 ActivityTimerAudioProcessor::~ActivityTimerAudioProcessor ()
 {
+    serializableParameters = nullptr;
+    activityTimer = nullptr;
 }
 
 //==============================================================================
@@ -171,25 +174,20 @@ void ActivityTimerAudioProcessor::getStateInformation (juce::MemoryBlock& destDa
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
-    juce::MemoryOutputStream memoryOutputStream (destData, true);
-    memoryOutputStream.writeInt (activityTimer->getHours());
-    memoryOutputStream.writeInt (activityTimer->getMinutes());
-    memoryOutputStream.writeInt (activityTimer->getSeconds());
-    memoryOutputStream.writeInt (activityTimer->activeSustain->get());
+    serializableParameters->saveState (destData);
 }
 
 void ActivityTimerAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
-    juce::MemoryInputStream memoryInputStream (data, sizeInBytes, false);
-    const int hour = memoryInputStream.readInt();
-    const int minute = memoryInputStream.readInt();
-    const int second = memoryInputStream.readInt();
-    const int activeSustain = memoryInputStream.readInt();
-
-    activityTimer->setTimerState (hour, minute, second, activeSustain);
+    serializableParameters->loadState (data, sizeInBytes);
     activityTimer->startTimer();
+}
+
+SerializableParameters* ActivityTimerAudioProcessor::getSerializableParameters () const
+{
+    return serializableParameters.get();
 }
 
 
@@ -200,27 +198,21 @@ ActivityTimer* ActivityTimerAudioProcessor::getTimer() const
 
 void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal (const juce::AudioBuffer<float>& buffer) const
 {
-    const int totalNumInputChannels = getTotalNumInputChannels();
     const int numSamples = buffer.getNumSamples();
+    float magnitude = buffer.getMagnitude (0, numSamples);
+    magnitude = magnitude * serializableParameters->sensitivity->get();
     
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    if (floatIsNearlyZero (magnitude))
     {
-        const float* reader = buffer.getReadPointer (channel, 0);
-        for (int i = 0; i < numSamples; ++i)
-        {
-            if (!floatIsNearlyZero (reader[i]))
-            {
-                activityTimer->setSilenceState(false);
-                return;
-            }
-        }
+        activityTimer->setSignalState(false);
+        return;
     }
-    activityTimer->setSilenceState(true);
+    activityTimer->setSignalState(true);
 }
 
 bool ActivityTimerAudioProcessor::floatIsNearlyZero (const float floatNum)
 {
-    constexpr float epsilon = 1e-4f;
+    constexpr float epsilon = 0.01;
     return std::abs(floatNum) <= epsilon;
 }
 
