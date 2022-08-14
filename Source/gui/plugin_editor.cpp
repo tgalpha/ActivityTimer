@@ -83,7 +83,7 @@ ActivityTimerAudioProcessorEditor::ActivityTimerAudioProcessorEditor (ActivityTi
 
     //[UserPreSize]
     activityTimer->addViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
-    activityTimer->addSignalIndicator (signalIndicator.get());
+    activityTimer->addChangeListener (signalIndicator.get());
     expireTimeProgressBar->setPercentageDisplay (false);
     shapeButtonReset->setTooltip ("Reset timer");
     shapeButtonReset->addListener (this);
@@ -104,7 +104,7 @@ ActivityTimerAudioProcessorEditor::~ActivityTimerAudioProcessorEditor()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
     activityTimer->removeViewers (hoursViewer.get(), minutesViewer.get(), secondsViewer.get());
-    activityTimer->removeSignalIndicator (signalIndicator.get());
+    activityTimer->removeChangeListener (signalIndicator.get());
     myLookAndFeel = nullptr;
     //[/Destructor_pre]
 

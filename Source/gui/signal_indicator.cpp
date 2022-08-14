@@ -23,7 +23,10 @@
 #include "signal_indicator.h"
 
 
+
 //[MiscUserDefs] You can add your own user definitions and misc code here...
+#include <typeinfo>
+#include "../activity_timer.h"
 //[/MiscUserDefs]
 
 //==============================================================================
@@ -56,6 +59,7 @@ SignalIndicator::~SignalIndicator()
     //[/Destructor]
 }
 
+
 //==============================================================================
 void SignalIndicator::paint (juce::Graphics& g)
 {
@@ -73,11 +77,11 @@ void SignalIndicator::paint (juce::Graphics& g)
         }
         //[/UserPaintCustomArguments]
         g.setGradientFill (juce::ColourGradient (fillColour1,
-                                             12.0f - 0.0f + x,
-                                             12.0f - 0.0f + y,
+                                             12.0f + x,
+                                             12.0f + y,
                                              fillColour2,
-                                             0.0f - 0.0f + x,
-                                             0.0f - 0.0f + y,
+                                             x,
+                                             y,
                                              true));
         g.fillEllipse (x, y, width, height);
     }
@@ -99,20 +103,11 @@ void SignalIndicator::resized()
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 
-void SignalIndicator::parameterValueChanged (int parameterIndex, float newValue)
+void SignalIndicator::changeListenerCallback (juce::ChangeBroadcaster* source)
 {
-    juce::MessageManagerLock lock (juce::Thread::getCurrentThread());
-
-    if (! lock.lockWasGained())
-        return;
-
-    isLight = newValue;
-
+    // Can only listen to ActivityTimer
+    isLight = static_cast<ActivityTimer*> (source)->getSignalState();
     repaint();
-}
-
-void SignalIndicator::parameterGestureChanged (int parameterIndex, bool gestureIsStarting)
-{
 }
 
 //[/MiscUserCode]

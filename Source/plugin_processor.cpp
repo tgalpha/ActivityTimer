@@ -200,7 +200,7 @@ void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal (const juce::Audio
 {
     const int numSamples = buffer.getNumSamples();
     float magnitude = buffer.getMagnitude (0, numSamples);
-    magnitude = magnitude * serializableParameters->sensitivity->get();
+    magnitude = magnitude * pow (serializableParameters->sensitivity->get(), 3);
     
     if (floatIsNearlyZero (magnitude))
     {
@@ -212,7 +212,7 @@ void ActivityTimerAudioProcessor::checkIfAudioBufferHasSignal (const juce::Audio
 
 bool ActivityTimerAudioProcessor::floatIsNearlyZero (const float floatNum)
 {
-    constexpr float epsilon = 0.01;
+    constexpr float epsilon = 0.05;
     return std::abs(floatNum) <= epsilon;
 }
 

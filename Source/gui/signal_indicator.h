@@ -34,7 +34,7 @@
                                                                     //[/Comments]
 */
 class SignalIndicator  : public juce::Component,
-                         public juce::AudioProcessorParameter::Listener,
+                         public juce::ChangeListener,
                          public juce::SettableTooltipClient
 {
 public:
@@ -44,9 +44,7 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    void parameterValueChanged (int parameterIndex, float newValue) override;
-    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override;
-
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
     //[/UserMethods]
 
     void paint (juce::Graphics& g) override;

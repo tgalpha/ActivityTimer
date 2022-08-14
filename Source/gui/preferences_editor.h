@@ -56,7 +56,7 @@ private:
     //[UserVariables]   -- You can add your own custom variables in this section.
     ActivityTimer* activityTimer;
     SerializableParameters* serializableParameters;
-    
+
     juce::TooltipWindow tooltipWindow { this, 500 };
     //[/UserVariables]
 

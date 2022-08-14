@@ -12,11 +12,10 @@
 #include <JuceHeader.h>
 
 #include "serializable_parameters.h"
-#include "gui/signal_indicator.h"
 #include "gui/time_viewer.h"
 
 
-class ActivityTimer : public juce::Timer
+class ActivityTimer : public juce::Timer, public juce::ChangeBroadcaster
 {
 public:
     ActivityTimer(SerializableParameters* s);
@@ -31,8 +30,6 @@ public:
 
     void addViewers(TimeViewer* hoursViewer, TimeViewer* minutesViewer, TimeViewer* secondsViewer) const;
     void removeViewers(TimeViewer* hoursViewer, TimeViewer* minutesViewer, TimeViewer* secondsViewer) const;
-    void addSignalIndicator (SignalIndicator* signalIndicator) const;
-    void removeSignalIndicator (SignalIndicator* signalIndicator) const;
 
     int getHours() const;
     int getMinutes() const;
@@ -47,7 +44,7 @@ private:
 
     const int intervalInMilliseconds = 1000;
 
-    std::unique_ptr<juce::AudioParameterBool> hasSignal;
+    bool hasSignal = false;
     
     SerializableParameters* serializableParameters;
 

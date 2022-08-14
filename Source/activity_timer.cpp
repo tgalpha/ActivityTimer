@@ -15,14 +15,12 @@
 ActivityTimer::ActivityTimer(SerializableParameters* s) : Timer()
 {
     serializableParameters = s;
-    hasSignal.reset(new juce::AudioParameterBool(0, "hasSignal", false));
     startTimer();
 }
 
 ActivityTimer::~ActivityTimer()
 {
     stopTimer();
-    hasSignal = nullptr;
 }
 
 void ActivityTimer::timerCallback()
@@ -31,7 +29,7 @@ void ActivityTimer::timerCallback()
     debugPrintTime();
 
     increase(serializableParameters->seconds.get());
-    if (!hasSignal->get())
+    if (!hasSignal)
     {
         activeExpireTime--;
         refreshExpirePercentage();
@@ -97,7 +95,11 @@ void ActivityTimer::refreshExpirePercentage ()
 
 void ActivityTimer::setSignalState (bool newValue)
 {
-    *hasSignal = newValue;
+    if (hasSignal != newValue)
+    {
+        hasSignal = newValue;
+        sendChangeMessage();
+    }
     if (newValue)
     {
         activate();
@@ -120,16 +122,6 @@ void ActivityTimer::removeViewers(TimeViewer* hoursViewer, TimeViewer* minutesVi
     serializableParameters->seconds->removeListener(secondsViewer);
 }
 
-void ActivityTimer::addSignalIndicator (SignalIndicator* signalIndicator) const
-{
-    hasSignal->addListener (signalIndicator);
-}
-
-void ActivityTimer::removeSignalIndicator (SignalIndicator* signalIndicator) const
-{
-    hasSignal->removeListener (signalIndicator);
-}
-
 bool ActivityTimer::isActive() const
 {
     return activeExpireTime > 0;
@@ -137,7 +129,7 @@ bool ActivityTimer::isActive() const
 
 bool ActivityTimer::getSignalState () const
 {
-    return hasSignal->get();
+    return hasSignal;
 }
 
 void ActivityTimer::increase(juce::AudioParameterInt* targetMember)
