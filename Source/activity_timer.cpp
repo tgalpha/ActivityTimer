@@ -9,8 +9,7 @@
 */
 
 #include "activity_timer.h"
-
-#include "Constants.h"
+#include "constants.h"
 
 ActivityTimer::ActivityTimer(SerializableParameters* s) : Timer()
 {

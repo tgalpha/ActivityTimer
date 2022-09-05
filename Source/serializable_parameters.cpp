@@ -9,7 +9,7 @@
 */
 
 #include "serializable_parameters.h"
-#include  "constants.h"
+#include "constants.h"
 
 SerializableParameters::SerializableParameters ()
 {
