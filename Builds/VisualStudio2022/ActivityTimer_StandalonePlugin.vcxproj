@@ -66,7 +66,7 @@
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\source\modules\juce_audio_processors\format_types\VST3_SDK;..\..\JuceLibraryCode;..\..\source\modules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.1;JUCE_APP_VERSION_HEX=0x10001;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -80,7 +80,7 @@
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>..\..\source\modules\juce_audio_processors\format_types\VST3_SDK;..\..\JuceLibraryCode;..\..\source\modules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.1;JUCE_APP_VERSION_HEX=0x10001;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
       <OutputFile>$(OutDir)\ActivityTimer.exe</OutputFile>
@@ -99,9 +99,6 @@
     <Lib>
       <AdditionalDependencies>ActivityTimer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
-    <PostBuildEvent>
-      <Command>xcopy /y /d &quot;$(TargetDir)*.vst3&quot; &quot;%CommonProgramW6432%\VST3&quot;</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
@@ -114,7 +111,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <AdditionalIncludeDirectories>..\..\source\modules\juce_audio_processors\format_types\VST3_SDK;..\..\JuceLibraryCode;..\..\source\modules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.1;JUCE_APP_VERSION_HEX=0x10001;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -128,7 +125,7 @@
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>..\..\source\modules\juce_audio_processors\format_types\VST3_SDK;..\..\JuceLibraryCode;..\..\source\modules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=1.0.1;JUCE_APP_VERSION_HEX=0x10001;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
       <OutputFile>$(OutDir)\ActivityTimer.exe</OutputFile>
@@ -150,9 +147,6 @@
     <Lib>
       <AdditionalDependencies>ActivityTimer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
-    <PostBuildEvent>
-      <Command>xcopy /y /d &quot;$(TargetDir)*.vst3&quot; &quot;%CommonProgramW6432%\VST3&quot;</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\modules\juce_audio_plugin_client\Standalone\juce_StandaloneFilterApp.cpp">

@@ -3,7 +3,8 @@
 <JUCERPROJECT id="ljSE8o" name="ActivityTimer" projectType="audioplug" useAppConfig="1"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" pluginManufacturer="tgalpha"
               pluginVST3Category="Tools" companyWebsite="www.tgalpha.top" bundleIdentifier="com.tgalpha.ActivityTimer"
-              aaxIdentifier="com.tgalpha.ActivityTimer" displaySplashScreen="1">
+              aaxIdentifier="com.tgalpha.ActivityTimer" displaySplashScreen="1"
+              version="1.0.1">
   <MAINGROUP id="u1gZXw" name="ActivityTimer">
     <GROUP id="{F87F76C8-F35C-41F3-B880-3B61335B7724}" name="source">
       <GROUP id="{95328899-37AF-9149-67BE-EA8755C815D4}" name="gui">
@@ -50,8 +51,8 @@
   <EXPORTFORMATS>
     <VS2022 targetFolder="Builds/VisualStudio2022" toolset="v142">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="ActivityTimer" postbuildCommand="xcopy /y /d &quot;$(TargetDir)*.vst3&quot; &quot;%CommonProgramW6432%\VST3&quot;"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="ActivityTimer" postbuildCommand="xcopy /y /d &quot;$(TargetDir)*.vst3&quot; &quot;%CommonProgramW6432%\VST3&quot;"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="ActivityTimer"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="ActivityTimer"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="source\modules"/>
