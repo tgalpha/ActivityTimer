@@ -1,0 +1,3 @@
+[submodule "juci"]
+	path = juci
+	url = git@github.com:tgalpha/juci.git
