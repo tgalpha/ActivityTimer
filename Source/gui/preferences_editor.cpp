@@ -37,7 +37,7 @@ PreferencesEditor::PreferencesEditor (ActivityTimer* t, SerializableParameters* 
     sliderActiveSustain.reset (new juce::Slider ("sliderActiveSustain"));
     addAndMakeVisible (sliderActiveSustain.get());
     sliderActiveSustain->setTooltip (TRANS("ActivateSustain: The duration(seconds) that timer remains active when a signal is received"));
-    sliderActiveSustain->setRange (0, 60, 1);
+    sliderActiveSustain->setRange (1, 60, 1);
     sliderActiveSustain->setSliderStyle (juce::Slider::LinearHorizontal);
     sliderActiveSustain->setTextBoxStyle (juce::Slider::TextBoxLeft, false, 30, 20);
     sliderActiveSustain->addListener (this);
@@ -172,7 +172,7 @@ BEGIN_JUCER_METADATA
   <BACKGROUND backgroundColour="ff323e44"/>
   <SLIDER name="sliderActiveSustain" id="bd4a151633c1aa7e" memberName="sliderActiveSustain"
           virtualName="" explicitFocusOrder="0" pos="128 16 160 24" tooltip="ActivateSustain: The duration(seconds) that timer remains active when a signal is received"
-          min="0.0" max="60.0" int="1.0" style="LinearHorizontal" textBoxPos="TextBoxLeft"
+          min="1.0" max="60.0" int="1.0" style="LinearHorizontal" textBoxPos="TextBoxLeft"
           textBoxEditable="1" textBoxWidth="30" textBoxHeight="20" skewFactor="0.5"
           needsCallback="1"/>
   <LABEL name="labelActivitySustain" id="1fe09e03243ac8d2" memberName="labelActivitySustain"
